@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apollo Corfu — Staff Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cypress: #2D4A3E;
+  --cypress-mid: #3D6355;
+  --cypress-light: #5A8A72;
+  --cypress-pale: #EEF4F1;
+  --cypress-soft: #D4E6DC;
+  --gold: #C4933A;
+  --gold-light: #E8BA6A;
+  --gold-pale: #FBF5E8;
+  --cream: #F5F8F5;
+  --text: #1C2B24;
+  --text-mid: #3D5449;
+  --text-light: #7A9B8A;
+  --border: #C8DDD3;
+  --white: #FFFFFF;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+/* ── HEADER ── */
+.header {
+  background: var(--cypress);
+  border-bottom: 3px solid var(--gold);
+  padding: 0 2rem;
+}
+.header-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700; color: var(--white);
+  letter-spacing: 0.04em;
+}
+.header-logo span {
+  font-size: 10px; font-weight: 300; color: var(--gold-light);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  display: block; line-height: 1;
+}
+.header-badge {
+  font-size: 10px; font-weight: 400; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold-light);
+  border: 1px solid rgba(232,186,106,0.4);
+  padding: 5px 14px; border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--cypress);
+  min-height: 92vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 5rem 2rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px; border-radius: 50%;
+  border: 1px solid rgba(196,147,58,0.1);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 1200px; height: 1200px; border-radius: 50%;
+  border: 1px solid rgba(196,147,58,0.05);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 820px; }
+
+.hero-season {
+  display: inline-block;
+  font-size: 10px; font-weight: 400; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid rgba(196,147,58,0.35);
+  padding: 5px 16px; border-radius: 20px; margin-bottom: 2rem;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700; color: var(--white);
+  line-height: 1.1; letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+}
+.hero h1 em { color: var(--gold-light); font-style: italic; font-weight: 400; }
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 400; font-style: italic;
+  color: var(--gold-light); margin-bottom: 2.5rem;
+}
+
+/* Divider */
+.divider {
+  display: flex; align-items: center; gap: 14px;
+  justify-content: center; margin-bottom: 2.5rem;
+}
+.divider-line { width: 80px; height: 1px; background: var(--gold); opacity: 0.4; }
+.divider-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.7; }
+
+/* Bilingual mission statement */
+.mission-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 1px solid rgba(196,147,58,0.2);
+  border-radius: 14px; overflow: hidden; margin-bottom: 3rem;
+  max-width: 780px; margin-left: auto; margin-right: auto;
+}
+.mission-en { background: rgba(255,255,255,0.06); padding: 1.75rem 2rem; border-right: 1px solid rgba(196,147,58,0.15); }
+.mission-gr { background: rgba(255,255,255,0.03); padding: 1.75rem 2rem; }
+.mission-lang {
+  font-size: 9px; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 10px; display: block;
+}
+.mission-gr .mission-lang { color: var(--cypress-light); }
+.mission-text {
+  font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.72);
+  line-height: 1.85; text-align: left;
+}
+
+/* Website link */
+.hero-website {
+  font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.06em; margin-bottom: 3rem; display: block;
+}
+.hero-website a {
+  color: var(--gold-light); text-decoration: none;
+  border-bottom: 1px solid rgba(232,186,106,0.3);
+  padding-bottom: 1px; transition: all 0.2s;
+}
+.hero-website a:hover { color: var(--white); border-bottom-color: var(--white); }
+
+/* ── PORTAL CARDS ── */
+.portal-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-light);
+  text-align: center; margin-bottom: 1.25rem;
+  position: relative; z-index: 1;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px; max-width: 900px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.portal-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(196,147,58,0.2);
+  border-top: 2px solid var(--gold);
+  border-radius: 10px; padding: 1.25rem;
+  text-align: center; cursor: pointer;
+  text-decoration: none; transition: all 0.2s;
+  display: block;
+}
+.portal-card:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(196,147,58,0.5);
+  transform: translateY(-2px);
+}
+.card-icon { font-size: 22px; margin-bottom: 8px; display: block; }
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; font-weight: 600; color: var(--white);
+  margin-bottom: 3px; letter-spacing: 0.02em;
+}
+.card-sub { font-size: 10px; font-weight: 300; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ── MAIN CONTENT ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+/* About this portal */
+.portal-about {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  margin-bottom: 3rem;
+}
+.portal-en { background: var(--white); padding: 2.5rem 3rem; border-right: 1px solid var(--border); }
+.portal-gr { background: var(--cypress-pale); padding: 2.5rem 3rem; }
+.lang-tag {
+  font-size: 9px; font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 12px; display: block;
+}
+.portal-gr .lang-tag { color: var(--cypress-mid); }
+.portal-about h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 600; color: var(--cypress);
+  margin-bottom: 1rem; line-height: 1.2;
+}
+.portal-about p {
+  font-size: 14px; font-weight: 300; color: var(--text-mid);
+  line-height: 1.9; margin-bottom: 0.85rem;
+}
+.portal-about p:last-child { margin: 0; }
+
+/* Quick links grid */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 600; color: var(--cypress);
+  margin-bottom: 1.5rem; letter-spacing: 0.01em;
+}
+.links-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px; margin-bottom: 3rem;
+}
+.link-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.5rem;
+  display: flex; align-items: flex-start; gap: 14px;
+  text-decoration: none; transition: all 0.15s;
+}
+.link-card:hover { border-color: var(--cypress-light); box-shadow: 0 2px 12px rgba(45,74,62,0.08); }
+.link-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  background: var(--cypress); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.link-card:nth-child(2) .link-icon { background: #7A3B1E; }
+.link-card:nth-child(3) .link-icon { background: #1A2744; }
+.link-card:nth-child(4) .link-icon { background: #2D4A3E; }
+.link-card:nth-child(5) .link-icon { background: #4A3820; }
+.link-body { flex: 1; }
+.link-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 600; color: var(--text);
+  margin-bottom: 3px;
+}
+.link-desc { font-size: 12.5px; font-weight: 300; color: var(--text-light); line-height: 1.6; }
+.link-arrow { color: var(--text-light); font-size: 16px; margin-top: 2px; flex-shrink: 0; transition: transform 0.15s; }
+.link-card:hover .link-arrow { transform: translateX(3px); color: var(--cypress); }
+
+/* Info row */
+.info-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-bottom: 3rem;
+}
+.info-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-top: 3px solid var(--cypress); border-radius: 10px; padding: 1.25rem;
+}
+.info-card:nth-child(2) { border-top-color: var(--gold); }
+.info-card:nth-child(3) { border-top-color: var(--cypress-light); }
+.info-card-title {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--cypress); margin-bottom: 8px;
+}
+.info-card:nth-child(2) .info-card-title { color: var(--gold); }
+.info-card p { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.75; margin: 0; }
+.info-card strong { color: var(--text); font-weight: 500; }
+
+/* Footer */
+footer {
+  background: var(--cypress);
+  border-top: 3px solid var(--gold);
+  padding: 2rem; text-align: center;
+}
+.footer-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; color: var(--white);
+  letter-spacing: 0.05em; margin-bottom: 6px;
+}
+.footer-meta { font-size: 12px; font-weight: 300; color: var(--text-light); letter-spacing: 0.06em; }
+.footer-meta a { color: var(--gold-light); text-decoration: none; }
+.footer-sep { display: inline-block; margin: 0 8px; opacity: 0.4; }
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .mission-wrap { grid-template-columns: 1fr; }
+  .mission-en { border-right: none; border-bottom: 1px solid rgba(196,147,58,0.15); }
+  .portal-about { grid-template-columns: 1fr; }
+  .portal-en { border-right: none; border-bottom: 1px solid var(--border); }
+  .info-row { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-logo">
+      Apollo Corfu
+      <span>Messonghi · Corfu · Greece</span>
+    </div>
+    <span class="header-badge">Staff Portal · 2026</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-season">2026 Season · Internal Staff Resource</span>
+    <h1>Welcome to the<br><em>Apollo Corfu</em><br>Staff Portal</h1>
+    <p class="hero-sub">Καλωσορίσατε στην Πύλη Προσωπικού</p>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Bilingual intro -->
+    <div class="mission-wrap">
+      <div class="mission-en">
+        <span class="mission-lang">English</span>
+        <p class="mission-text">This portal has been created exclusively for the team of Apollo Corfu. Here you will find everything you need to know about our hotel, our restaurants, our services and our standards — all in one place, always up to date.</p>
+      </div>
+      <div class="mission-gr">
+        <span class="mission-lang" style="color:var(--cypress-light)">Ελληνικά</span>
+        <p class="mission-text">Αυτή η πύλη δημιουργήθηκε αποκλειστικά για την ομάδα του Apollo Corfu. Εδώ θα βρείτε όλα όσα χρειάζεστε να γνωρίζετε για το ξενοδοχείο μας, τα εστιατόριά μας, τις υπηρεσίες μας και τα πρότυπά μας — σε ένα μέρος, πάντα ενημερωμένα.</p>
+      </div>
+    </div>
+
+    <span class="hero-website">
+      Hotel website: <a href="https://www.apollocorfu.com" target="_blank">www.apollocorfu.com</a>
+    </span>
+
+    <!-- Portal nav cards -->
+    <div class="portal-label">Navigate the portal</div>
+    <div class="cards-grid">
+      <a class="portal-card" href="https://stamelos1.github.io/apollocorfu/apollo_corfu_handbook.html">
+        <span class="card-icon">📋</span>
+        <div class="card-title">Staff Handbook</div>
+        <div class="card-sub">2026 Edition</div>
+      </a>
+      <a class="portal-card" href="https://stamelos1.github.io/apollocorfu/apollo_corfu_qnafinal.html">
+        <span class="card-icon">❓</span>
+        <div class="card-title">Q&A Guide</div>
+        <div class="card-sub">62 Questions</div>
+      </a>
+      <a class="portal-card" href="https://stamelos1.github.io/apollocorfu/asador_farm_to_flame.html">
+        <span class="card-icon">🔥</span>
+        <div class="card-title">Asador</div>
+        <div class="card-sub">Farm to Flame</div>
+      </a>
+      <a class="portal-card" href="https://stamelos1.github.io/apollocorfu/coryfo_by_botrini.html">
+        <span class="card-icon">★</span>
+        <div class="card-title">Coryfo</div>
+        <div class="card-sub">by Ettore Botrini</div>
+      </a>
+      <a class="portal-card" href="https://stamelos1.github.io/apollocorfu/la_cantina_ristorante.html">
+        <span class="card-icon">🍝</span>
+        <div class="card-title">La Cantina</div>
+        <div class="card-sub">Ristorante</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- About this portal -->
+  <div class="portal-about">
+    <div class="portal-en">
+      <span class="lang-tag">English</span>
+      <h2>Your complete reference guide for the 2026 season</h2>
+      <p>This staff portal brings together all the information you need to do your job well and represent Apollo Corfu with pride. It has been built specifically for our team — not for guests, not for the public — as an internal resource that reflects our standards, our philosophy and our commitment to exceptional hospitality.</p>
+      <p>Inside you will find the <strong>Employee Handbook</strong> with all policies, standards and procedures; the <strong>Staff Q&A Guide</strong> with answers to the most common questions from guests; and dedicated pages for each of our restaurants — <strong>Asador Farm to Flame</strong>, <strong>Coryfo by Ettore Botrini</strong> and <strong>La Cantina Ristorante</strong> — with full menus and service information.</p>
+      <p>This portal will be updated throughout the season. Bookmark it, consult it often, and use it to deliver the quality of service that defines Apollo Corfu.</p>
+    </div>
+    <div class="portal-gr">
+      <span class="lang-tag">Ελληνικά</span>
+      <h2>Ο πλήρης οδηγός αναφοράς σας για τη σεζόν 2026</h2>
+      <p>Αυτή η πύλη προσωπικού συγκεντρώνει όλες τις πληροφορίες που χρειάζεστε για να εκτελείτε τη δουλειά σας σωστά και να εκπροσωπείτε το Apollo Corfu με περηφάνια. Έχει δημιουργηθεί αποκλειστικά για την ομάδα μας — όχι για τους πελάτες, όχι για το κοινό — ως εσωτερικό εργαλείο που αντικατοπτρίζει τα πρότυπά μας, τη φιλοσοφία μας και τη δέσμευσή μας για εξαιρετική φιλοξενία.</p>
+      <p>Εδώ θα βρείτε το <strong>Εγχειρίδιο Υπαλλήλων</strong> με όλες τις πολιτικές και διαδικασίες· τον <strong>Οδηγό Q&A</strong> με απαντήσεις στις πιο συχνές ερωτήσεις πελατών· και ξεχωριστές σελίδες για κάθε εστιατόριό μας — <strong>Asador Farm to Flame</strong>, <strong>Coryfo by Ettore Botrini</strong> και <strong>La Cantina Ristorante</strong> — με πλήρη μενού και πληροφορίες εξυπηρέτησης.</p>
+      <p>Αυτή η πύλη θα ενημερώνεται καθ' όλη τη διάρκεια της σεζόν. Αποθηκεύστε τη, συμβουλευτείτε την συχνά και χρησιμοποιήστε την για να προσφέρετε την ποιότητα υπηρεσιών που ορίζει το Apollo Corfu.</p>
+    </div>
+  </div>
+
+  <!-- Quick links -->
+  <div class="section-title">What's inside</div>
+  <div class="links-grid">
+    <a class="link-card" href="https://stamelos1.github.io/apollocorfu/apollo_corfu_handbook.html">
+      <div class="link-icon">📋</div>
+      <div class="link-body">
+        <div class="link-title">Employee Handbook 2026</div>
+        <div class="link-desc">Policies, standards, employment conditions, conduct, benefits and safety — the complete guide for all staff.</div>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+    <a class="link-card" href="https://stamelos1.github.io/apollocorfu/apollo_corfu_qnafinal.html">
+      <div class="link-icon">❓</div>
+      <div class="link-body">
+        <div class="link-title">Staff Q&A Knowledge Base</div>
+        <div class="link-desc">62 questions and answers across 15 categories — everything guests ask, with the correct answers ready.</div>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+    <a class="link-card" href="https://stamelos1.github.io/apollocorfu/asador_farm_to_flame.html">
+      <div class="link-icon">🔥</div>
+      <div class="link-body">
+        <div class="link-title">Asador Farm to Flame</div>
+        <div class="link-desc">Restaurant story, the Apollo Organic Farm experience, and full breakfast, lunch and dinner menus.</div>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+    <a class="link-card" href="https://stamelos1.github.io/apollocorfu/coryfo_by_botrini.html">
+      <div class="link-icon">★</div>
+      <div class="link-body">
+        <div class="link-title">Coryfo by Ettore Botrini</div>
+        <div class="link-desc">Michelin-starred Corfiot fine dining — about the chef, the restaurant, and the full dinner menu.</div>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+    <a class="link-card" href="https://stamelos1.github.io/apollocorfu/la_cantina_ristorante.html">
+      <div class="link-icon">🍝</div>
+      <div class="link-body">
+        <div class="link-title">La Cantina Ristorante</div>
+        <div class="link-desc">Authentic Italian dining — restaurant description and full dinner menu with pizzas, pasta and more.</div>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- Info row -->
+  <div class="info-row">
+    <div class="info-card">
+      <div class="info-card-title">🏨 Apollo Corfu</div>
+      <p>
+        <strong>5-star hotel</strong> · Messonghi, Corfu<br>
+        Founded <strong>1987</strong> · 330 rooms<br>
+        Season: <strong>May – October 2026</strong><br>
+        4-phase renovation · Between phases 2 & 3<br><br>
+        General Manager: <strong>Philippos Stamelos</strong>
+      </p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">📞 Key Contacts</div>
+      <p>
+        Hotel main line: <strong>+30 26610 75433</strong><br>
+        Reservations: <strong>+30 26610 75433</strong><br>
+        WhatsApp: <strong>+30 6947770489</strong><br>
+        Email: <strong>reservations@apollopalace-corfu.com</strong><br>
+        Website: <strong>www.apollocorfu.com</strong>
+      </p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">⚙ Systems</div>
+      <p>
+        Restaurant reservations & maintenance: <strong>Exclusivi</strong><br>
+        Guest complaints & issues: <strong>GEX Journal</strong><br>
+        Special offers coordination: <strong>Viber Group</strong><br>
+        Guest Experience: <strong>Spyros Zafeirakis</strong>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Apollo Corfu Staff Portal · 2026</div>
+  <div class="footer-meta">
+    For internal use only · Apollo Corfu team
+    <span class="footer-sep">·</span>
+    Rio Beach S.A.
+    <span class="footer-sep">·</span>
+    Ακτή Μεσογγής, Κέρκυρα 49080
+    <span class="footer-sep">·</span>
+    <a href="https://www.apollocorfu.com" target="_blank">www.apollocorfu.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
