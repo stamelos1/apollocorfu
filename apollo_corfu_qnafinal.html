@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apollo Corfu — Staff Knowledge Base</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cypress: #2D4A3E;
+  --cypress-mid: #3D6355;
+  --cypress-light: #5A8A72;
+  --cypress-pale: #EEF4F1;
+  --cypress-soft: #D4E6DC;
+  --gold: #C4933A;
+  --gold-light: #E8BA6A;
+  --gold-pale: #FBF5E8;
+  --text: #1C2B24;
+  --text-mid: #3D5449;
+  --text-light: #7A9B8A;
+  --border: #C8DDD3;
+  --bg: #F4F8F5;
+  --white: #FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text)}
+
+/* HEADER */
+.site-header{background:var(--cypress);position:sticky;top:0;z-index:200;border-bottom:3px solid var(--gold)}
+.header-inner{max-width:1140px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:0.04em}
+.logo-sub{font-size:10px;font-weight:300;color:var(--gold-light);letter-spacing:0.15em;text-transform:uppercase;display:block;line-height:1}
+.header-tag{font-size:11px;font-weight:400;color:var(--gold-light);letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--gold);padding:5px 14px;border-radius:20px}
+
+/* HERO */
+.hero{background:var(--cypress-mid);padding:2.5rem 2rem;text-align:center;border-bottom:1px solid rgba(196,147,58,0.25)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:#fff;margin-bottom:6px}
+.hero h1 em{color:var(--gold-light);font-style:italic;font-weight:400}
+.hero p{font-size:13px;font-weight:300;color:var(--gold-light);letter-spacing:0.06em}
+
+/* SEARCH */
+.search-section{background:var(--cypress);padding:1.25rem 2rem;border-bottom:1px solid rgba(196,147,58,0.2)}
+.search-inner{max-width:680px;margin:0 auto}
+.search-box{display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1.5px solid rgba(196,147,58,0.5);border-radius:50px;padding:0 1.25rem;gap:10px;transition:border-color 0.2s}
+.search-box:focus-within{border-color:var(--gold);background:rgba(255,255,255,0.12)}
+.search-box svg{color:var(--gold);flex-shrink:0}
+.search-box input{flex:1;border:none;outline:none;background:transparent;font-family:'Jost',sans-serif;font-size:14px;font-weight:400;color:#fff;padding:13px 0}
+.search-box input::placeholder{color:var(--text-light)}
+#search-count{font-size:12px;color:var(--text-light);white-space:nowrap}
+
+/* LAYOUT */
+.layout{max-width:1140px;margin:0 auto;padding:2.5rem 1.5rem 5rem;display:grid;grid-template-columns:230px 1fr;gap:2.5rem;align-items:start}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:84px}
+.sidebar-label{font-size:10px;font-weight:500;color:var(--text-light);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:10px;padding:0 4px}
+.nav-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.nav-btn{display:flex;align-items:center;gap:9px;width:100%;padding:9px 12px;border:none;background:transparent;border-radius:8px;cursor:pointer;text-align:left;font-family:'Jost',sans-serif;font-size:13px;font-weight:400;color:var(--text-mid);transition:all 0.15s;border:1px solid transparent}
+.nav-btn:hover{background:var(--cypress-pale);color:var(--cypress);border-color:var(--border)}
+.nav-btn.active{background:var(--cypress);color:#fff;font-weight:500;border-color:var(--cypress)}
+.nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.nav-count{margin-left:auto;font-size:11px;opacity:0.65;font-weight:300}
+
+/* CONTENT */
+.section-block{margin-bottom:2.5rem}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--cypress-soft)}
+.section-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--cypress);letter-spacing:0.01em}
+.section-count{margin-left:auto;font-size:11px;color:var(--text-light);font-weight:300;letter-spacing:0.04em}
+
+/* Q&A CARDS */
+.qa-list{display:flex;flex-direction:column;gap:6px}
+.qa-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s}
+.qa-card:hover{border-color:var(--cypress-light)}
+.qa-card.open{border-color:var(--cypress);box-shadow:0 0 0 3px rgba(45,74,62,0.06)}
+.qa-question{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
+.qa-num{font-size:10px;font-weight:500;color:var(--cypress-light);min-width:20px;padding-top:3px;letter-spacing:0.05em}
+.qa-q-text{font-size:14px;font-weight:500;color:var(--text);flex:1;line-height:1.55}
+.qa-toggle{width:22px;height:22px;border-radius:50%;background:var(--cypress-pale);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all 0.2s}
+.qa-card.open .qa-toggle{background:var(--cypress);border-color:var(--cypress);transform:rotate(45deg)}
+.qa-toggle svg{width:10px;height:10px}
+.qa-toggle svg line{stroke:var(--cypress);stroke-width:2;stroke-linecap:round}
+.qa-card.open .qa-toggle svg line{stroke:white}
+.qa-answer{display:none;padding:12px 16px 16px 48px;font-size:13.5px;font-weight:300;color:var(--text-mid);line-height:1.8;border-top:1px solid var(--cypress-pale);background:var(--bg)}
+.qa-card.open .qa-answer{display:block}
+
+/* NO RESULTS */
+.no-results{text-align:center;padding:4rem 2rem;color:var(--text-light)}
+.no-results p{font-size:15px}
+
+mark{background:rgba(196,147,58,0.25);color:inherit;border-radius:2px;padding:0 1px}
+
+/* FOOTER */
+footer{background:var(--cypress);border-top:3px solid var(--gold);padding:2rem;text-align:center}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#fff;letter-spacing:0.05em;margin-bottom:6px}
+.footer-meta{font-size:12px;font-weight:300;color:var(--text-light);letter-spacing:0.07em}
+
+@media(max-width:800px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .hero h1{font-size:1.8rem}
+  .header-tag{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div>
+      <span class="logo-text">Apollo Corfu</span>
+      <span class="logo-sub">Messonghi · Corfu · Greece</span>
+    </div>
+    <span class="header-tag">Staff Knowledge Base</span>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Staff <em>Knowledge Base</em></h1>
+  <p>Internal reference guide · 2026 Season · For team use only</p>
+</div>
+
+<div class="search-section">
+  <div class="search-inner">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search-input" placeholder="Search any question or keyword..." oninput="filterAll()" autocomplete="off">
+      <span id="search-count"></span>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-label">Categories</div>
+    <ul class="nav-list" id="nav-list"></ul>
+  </aside>
+  <main id="content"></main>
+</div>
+
+<footer>
+  <div class="footer-name">Apollo Corfu</div>
+  <div class="footer-meta">Rio Beach S.A. · Ακτή Μεσογγής, Corfu 49080 · Staff Reference Document 2026</div>
+</footer>
+
+<script>
+const CATS=[
+  {id:'general',label:'General',color:'#854F0B',icon:'🏨'},
+  {id:'accommodation',label:'Rooms',color:'#185FA5',icon:'🛏'},
+  {id:'dining',label:'Dining',color:'#0F6E56',icon:'🍽'},
+  {id:'packages',label:'Packages',color:'#993C1D',icon:'📦'},
+  {id:'farm',label:'Apollo Farm',color:'#3B6D11',icon:'🌿'},
+  {id:'guest',label:'Guest Experience',color:'#534AB7',icon:'⭐'},
+  {id:'entertainment',label:'Entertainment',color:'#7A4F00',icon:'🎵'},
+  {id:'animation',label:'Animation',color:'#993556',icon:'🏊'},
+  {id:'activities',label:'Activities',color:'#085041',icon:'🎯'},
+  {id:'corfu',label:'Corfu Island',color:'#633806',icon:'🏛'},
+  {id:'transport',label:'Transport',color:'#444441',icon:'🚌'},
+  {id:'ops',label:'Operations',color:'#A32D2D',icon:'⚙'},
+  {id:'pets',label:'Pets',color:'#72243E',icon:'🐾'},
+  {id:'policies',label:'Policies',color:'#0C447C',icon:'📋'},
+  {id:'ownership',label:'Ownership',color:'#712B13',icon:'🏢'},
+];
+
+const DATA=[
+  // GENERAL
+  {id:1,cat:'general',q:'What is the official category and location of the hotel?',a:'Apollo Corfu Hotel, 5-star. Ακτή Μεσογγής, Corfu 49080. Tel: +30 26610 75433 | reservations@apollopalace-corfu.com | www.apollocorfu.com'},
+  {id:2,cat:'general',q:'When did the hotel open and what renovation phase are we in?',a:'The hotel was founded in 1987. We are currently running a 4-phase renovation programme and are between phase 2 and phase 3.'},
+  {id:3,cat:'general',q:'When is the hotel open and what are the check-in/out times?',a:'Open May–October. Check-in: 15:00 | Check-out: 11:00.'},
+  {id:4,cat:'general',q:'How many rooms and beds does the hotel have?',a:'330 rooms, 674 beds. After the completion of the renovation: 1,040 beds.'},
+  {id:5,cat:'general',q:'What languages are spoken at the hotel?',a:'Greek, English, German, French and Dutch.'},
+  {id:6,cat:'general',q:'Which credit cards does the hotel accept?',a:'VISA, MasterCard, Diners Club.'},
+  {id:7,cat:'general',q:'Is there free Wi-Fi?',a:'Yes, free Wi-Fi throughout all hotel areas.'},
+  // ROOMS
+  {id:8,cat:'accommodation',q:'What room categories are available?',a:'Standard Double (23-25m²) | Deluxe Double (23-25m²) | Deluxe Double with Private Pool | Standard Quad (25-27m²) | Superior (30m²) | Superior Aquapark View (28m²) | Junior Suite (36m²) | Deluxe Junior Suite (30m²) | Deluxe Junior Suite with Private Pool | Family Room (35m²) | Deluxe Family Suite (40-45m²) | Deluxe Family Suite with Private Pool (40m²). Deluxe rooms were renovated in 2025.'},
+  {id:9,cat:'accommodation',q:'What is provided in all rooms?',a:'Air conditioning, furnished balcony/terrace, Wi-Fi, satellite TV, Nespresso machine, mini fridge, safe deposit box, telephone, premium bedding, bathrobes, slippers, hairdryer, bathroom amenities, 1 bottle of water upon arrival.'},
+  {id:10,cat:'accommodation',q:'How often is room cleaning and linen change carried out?',a:'Room cleaning: 7x/week | Towels: 7x/week | Bed linen: 3x/week | Pool towels: upon request at the Spa (10:00-18:00).'},
+  {id:11,cat:'accommodation',q:'Are there accessible rooms for guests with disabilities?',a:'There are 2 accessible rooms: Room 1703 and Room 1704. The entire hotel is fully accessible for guests with mobility impairments.'},
+  // DINING
+  {id:12,cat:'dining',q:'Which restaurants are open and what are their hours?',a:'Main Restaurant (500 seats): Breakfast 06:30-10:30 | Lunch 13:00-15:00 | Dinner 18:30-21:30. Asador Farm to Flame (104 seats): Breakfast 08:00-12:00 | Lunch 13:30-16:30 | Dinner 19:00-22:00. La Cantina (80 seats, Italian): 19:00-22:30. Coryfo by Ettore Botrini (100 seats): 19:30-23:00. Reservations required 24 hours in advance for all à la carte restaurants.'},
+  {id:13,cat:'dining',q:'How are restaurant reservations made?',a:'Exclusively through the Exclusivi system. No other method of booking is accepted. The same system is also used for logging maintenance issues.'},
+  {id:14,cat:'dining',q:'What are the themed dinner nights at the Main Restaurant?',a:'Sunday: Greek Night | Tuesday: Seafood Night | Friday: Asian Night. All served during the evening buffet at Soleni Restaurant (18:30-21:30).'},
+  {id:15,cat:'dining',q:'Who is the chef at Coryfo restaurant?',a:'Michelin-starred chef Ettore Botrini. The menu reimagines Corfiot classics: sofrito braised beef cheek, bourdeto, pastitsada, and creative desserts such as caramelised tsoureki with Greek coffee ice cream.'},
+  {id:16,cat:'dining',q:'What is the Dine Around programme?',a:'For stays of 4+ nights, guests receive one complimentary à la carte dinner: All Inclusive → at each of the 3 restaurants | Half Board → at one restaurant of their choice. Reservation via Exclusivi required.'},
+  {id:17,cat:'dining',q:'Which bars are open and what are the hours?',a:'Lobby Bar: 09:00-01:00 | Pool Bar: 10:00-18:00 | Blue Bar: 10:00-23:00 | Signature Bar (Adults Only): 10:00-18:00 | Beach Bar: 10:00-18:00 (weather permitting).'},
+  {id:18,cat:'dining',q:'What is the dress code for restaurants?',a:'Smart Casual / Casual Chic. Swimwear, wet beach clothes and flip-flops are not permitted during dinner.'},
+  // PACKAGES
+  {id:19,cat:'packages',q:'What does the All Inclusive package include?',a:'Breakfast buffet (06:30-10:30) | Lunch buffet (13:00-15:00) | Snack Bar (11:00-18:00) | Dinner buffet (18:30-21:30) | One complimentary à la carte dinner per restaurant (4+ nights) | All drinks except premium spirits & champagne | Unlimited ice cream. Wristband mandatory at all times. Package valid until midnight (00:00).'},
+  {id:20,cat:'packages',q:'What does the Half Board package include?',a:'Breakfast buffet (06:30-10:30) or à la carte at Asador (08:00-12:00) | Dinner buffet (18:30-21:30) | One complimentary à la carte dinner at one restaurant (4+ nights). Drinks and lunch not included. Lunch at Main Restaurant: €25/adult, €12/child under 11.'},
+  {id:21,cat:'packages',q:'Until what time is the All Inclusive valid?',a:'The AI package is valid until midnight (00:00). After that, all drinks are charged regardless of wristband.'},
+  {id:22,cat:'packages',q:'What is the difference between AI and HB for à la carte dining?',a:'All Inclusive: one complimentary dinner at EACH of the 3 restaurants (Asador, La Cantina, Coryfo) for stays of 4+ nights. Half Board: one complimentary dinner at ONE restaurant of choice for stays of 4+ nights.'},
+  // FARM
+  {id:23,cat:'farm',q:"What is the Greek Farmer's Breakfast?",a:'Every Thursday at 09:00. Guests visit the Apollo Organic Farm, pick seasonal vegetables with their own hands, and the Asador chef prepares a fresh omelette right before them using the ingredients just collected. Places are limited — reservation via Exclusivi required.'},
+  {id:24,cat:'farm',q:'What is the Apollo Organic Farm?',a:"The hotel's own organic farm supplying fresh vegetables and aromatic herbs daily to the Asador restaurant, reinforcing our farm-to-table philosophy. Organised guest visits are available."},
+  // GUEST EXPERIENCE
+  {id:25,cat:'guest',q:'When are pre-arrival messages sent?',a:'5-7 days before arrival. Purpose: build anticipation, support restaurant reservations, present hotel services.'},
+  {id:26,cat:'guest',q:'What is the priority order for personal guest welcome?',a:'1. Repeat guests | 2. VIP guests | 3. Long-stay guests | 4. Special categories | 5. OTA guests (where operationally possible).'},
+  {id:27,cat:'guest',q:'What do the welcome and farewell amenities include?',a:'Welcome (before room delivery): Welcome Plate + Welcome Card. Farewell (final evening): See You Soon Plate + Gift Bag + Farewell Card. All cards must be handwritten in blue pen only, signed "The Apollo Team".'},
+  {id:28,cat:'guest',q:'Where are guest complaints logged and who is responsible?',a:'All complaints and issues are recorded in the GEX Guest Experience Journal. Responsible person: Mr Spyros Zafeirakis.'},
+  {id:29,cat:'guest',q:'Where are maintenance issues logged?',a:'In the Exclusivi system — the same system used for restaurant reservations.'},
+  // ENTERTAINMENT
+  {id:30,cat:'entertainment',q:'What is the weekly live music schedule?',a:'Monday: Pop & Jazz — Corfu Duo | Lobby Bar 20:00-22:00. Tuesday: Legends | Lobby Bar 20:00-21:00 (special duration). Wednesday: Midnight Trio | Lobby Bar 20:00-22:00. Thursday: Jazz The Two Of Us | Lobby Bar 20:00-22:00. Friday: Ellie Rocks | Lobby Bar 20:00-22:00. Saturday: No event. Sunday: Greek Music & Dancers | Blue Bar 20:00-22:00.'},
+  {id:31,cat:'entertainment',q:'What are the themed food nights and when do they take place?',a:'Sunday: Greek Night | Tuesday: Seafood Night | Friday: Asian Night. All served as buffet at Soleni Restaurant, 18:30-21:30.'},
+  {id:32,cat:'entertainment',q:'Is there an event on Saturday evening?',a:'No — Saturday has no scheduled live music event.'},
+  {id:33,cat:'entertainment',q:'What event takes place every Sunday evening?',a:'Greek Music & Dancers at the Blue Bar, 20:00-22:00. At the same time, the Greek Night themed buffet is served at Soleni Restaurant.'},
+  // ANIMATION
+  {id:34,cat:'animation',q:'What morning animation activities are available?',a:'10:30: Yoga or Stretching (next to reception pool, alternating by day) | 10:30: Beach Volleyball | 11:30: Badminton (B-V place) | 11:30: Aqua Gym / Aqua Fit and Fun / Aqua Aerobics (Blue Bar, alternating) | 12:30: Pool Games.'},
+  {id:35,cat:'animation',q:'What afternoon animation activities are available?',a:'15:30: Darts (behind Kids Club) | 16:00: Ping Pong (Blue Bar) | 16:00: Water Polo (Blue Bar).'},
+  {id:36,cat:'animation',q:'What is the animation schedule by day?',a:'Monday: Yoga, Beach Volleyball, Badminton, Aqua Gym, Pool Games, Darts, Ping Pong, Water Polo. Tuesday: Stretching, Beach Volleyball, Badminton, Aqua Fit & Fun, Pool Games, Darts, Ping Pong, Water Polo. Wednesday: Yoga, Beach Volleyball, Badminton, Aqua Aerobics, Pool Games, Darts, Ping Pong, Water Polo. Thursday: DAY OFF. Friday: Pilates, Beach Volleyball, Badminton, Aqua Gym, Pool Games, Darts, Ping Pong, Water Polo. Saturday: Yoga, Beach Volleyball, Badminton, Aqua Fit & Fun, Pool Games, Darts, Ping Pong, Water Polo. Sunday: Stretching, Beach Volleyball, Badminton, Aqua Aerobics, Pool Games, Darts, Ping Pong, Water Polo.'},
+  {id:37,cat:'animation',q:'Is there an animation programme on Thursday?',a:"No — Thursday is the animation team's Day Off. However, the Greek Farmer's Breakfast takes place at the Apollo Farm at 09:00 (Asador Restaurant). Reservation via Exclusivi."},
+  {id:38,cat:'animation',q:'What happens in case of rain (Rainy Day Programme)?',a:'Indoor activities: 10:30 Yoga (Meeting Room) | 11:00 Table Games | 11:30 Dance Fitness (Meeting Room) | 15:00 Ping Pong | 15:30 Table Games | 16:00 Dance Class (Meeting Room).'},
+  // ACTIVITIES
+  {id:39,cat:'activities',q:'What are the Aqua Park operating hours?',a:'11:00-14:00 & 16:00-19:00. Free for all hotel guests. External visitors: access only with the Apollo Day Pass (€75/adult, €40/child under 12).'},
+  {id:40,cat:'activities',q:'What is the Apollo Day Pass?',a:'A day package for external visitors granting access to the Aqua Park and hotel facilities. Price: €75/adult | €40/child under 12 years old.'},
+  {id:41,cat:'activities',q:'Which activities are free for hotel guests?',a:'Outdoor Jacuzzi | Table Tennis | Aqua Park (11:00-14:00 & 16:00-19:00) | Mini Football | Basketball | Volleyball Sandy Court | Fitness room (08:00-19:00) | Sunbeds & umbrellas at the pool.'},
+  {id:42,cat:'activities',q:'What rules apply in the Quiet Zone (Signature Bar / Adults Only pool)?',a:'Children above 7 years old are permitted. The Jacuzzi/hydromassage may only be used by guests aged 16 and above.'},
+  {id:43,cat:'activities',q:'What are the rules regarding glassware at the pools?',a:'Polycarbonate cups are mandatory at all pool areas — glass is strictly prohibited for safety reasons. Cups must be returned to the bars after use.'},
+  {id:44,cat:'activities',q:'What does the Worldwide Kids Club offer?',a:"For children aged 4-12. Daily except Sundays. Supervised indoor and outdoor activities — reservation required. Also: 2 children's pools with waterslides, mini disco every evening, playground."},
+  {id:45,cat:'activities',q:'What services does the Aegeo Spa offer?',a:'Body treatments: The Temple 70 min, Shape Me Up 40 min, tailor-made 20 min | Facial & Aloe Vera | Signature Experiences: Breathe Aegeo 90 min, Divine Duet 75 min x2, Golden Hour 40 min | Beauty salon (hair, nails) | Sauna & hammam | Yoga in the gardens. Hours: 08:00-18:00.'},
+  // CORFU
+  {id:46,cat:'corfu',q:'What are the most important sights on Corfu?',a:'Corfu Old Town (UNESCO World Heritage) | Old Fortress | Achilleion Palace in Gastouri (~12 km) | Liston promenade | Kanoni & Mouse Island (Pontikonisi) | Church of St Spyridon | Paleokastritsa (~45 km).'},
+  {id:47,cat:'corfu',q:'How far are the main attractions from the hotel?',a:'Achilleion: ~12 km | Corfu Town: ~22 km | Corfu Airport (CFU): ~20 km | Benitses Marina: ~8.9 km | Paleokastritsa: ~45 km.'},
+  {id:48,cat:'corfu',q:'What is worth visiting near the hotel?',a:'Benitses (~8.9 km) — traditional fishing village | Moraitika — beach & tavernas | Achilleion Palace Gastouri (12 km) | Corfu Town centre (22 km) with UNESCO Old Town and Liston.'},
+  // TRANSPORT
+  {id:49,cat:'transport',q:'How do guests get from the airport to the hotel?',a:'Corfu Airport (CFU) is 20 km away. Options: taxi (recommended: pre-book via reception) | pre-arranged direct transfer | car rental at the airport.'},
+  {id:50,cat:'transport',q:'Is there a bus service?',a:'Yes. The Green Buses (KTEL) stop is located directly outside the hotel entrance. Line B7: Apollo Hotel Messonghi ↔ Corfu Green Bus Station (~46 minutes). Also lines B1, B6. Tickets: on the bus or at greenbuses.gr.'},
+  {id:51,cat:'transport',q:'Is there parking available?',a:'Yes, free uncovered parking at the hotel.'},
+  // OPERATIONS
+  {id:52,cat:'ops',q:'Late Check-Out: what are the options and costs?',a:'Until 15:00: €30 | Until 18:00: €50. Subject to availability — request via reception.'},
+  {id:53,cat:'ops',q:'What if a guest has a late flight after check-out at 11:00?',a:'Options: a) Free shower facilities next to the pool toilets (no charge). b) 2 changing rooms in the lobby area: €10 per 30 minutes. Luggage storage: free of charge.'},
+  {id:54,cat:'ops',q:'What are the rules regarding the All Inclusive wristband?',a:'Must be worn at all times. Provided at check-in. One drink per person per order. Multiple orders or sharing drinks with other guests is not permitted.'},
+  // PETS
+  {id:55,cat:'pets',q:'Are pets allowed?',a:'Yes. Small dogs up to 5 kg. Charge: €15/day. Certified guide dogs: free of charge. Member of the "Always Your Friend" Hospitality Pet Care Programme.'},
+  {id:56,cat:'pets',q:'What is provided for pets and what are the rules?',a:'In room: pet mattress, food & water bowls, shampoo, pet towel. Rules: not permitted in spa/restaurants/bars | leash or portable cage required in public areas | valid vaccination proof required | must not be left unattended without a cage. On departure: certificate of excellent behaviour provided.'},
+  // POLICIES
+  {id:57,cat:'policies',q:'Is there a doctor available?',a:'Yes, there is a doctor on call. In case of emergency, contact reception immediately.'},
+  {id:58,cat:'policies',q:'What other services are available?',a:'Mini Market: 09:00-22:00 | Boutique shop: 11:00-19:00 | Luggage storage (free) | Ironing & laundry (on request, extra charge) | Conference Room 85m²/90 pax (theatre style) | Wedding packages available | Online e-check-in available.'},
+  // OWNERSHIP
+  {id:59,cat:'ownership',q:'Who are the owners of the hotel?',a:'Mr Konstantinos Kontaxis | Mr Nicholaos Toumpouros | Mr Manolis Mprakatsoulas. Company: Rio Beach S.A. | VAT No: EL094186780.'},
+  {id:60,cat:'ownership',q:'Who is the hotel management team?',a:'General Manager: Philippos Stamelos | Guest Experience Manager: Spyros Zafeirakis | Reservations: Veronique van der Heijden | Finance: Christos Minas.'},
+];
+
+function getCat(id){return CATS.find(c=>c.id===id)||{label:id,color:'#555',icon:''};}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function highlight(text,term){
+  if(!term)return esc(text);
+  const re=new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return esc(text).replace(re,'<mark>$1</mark>');
+}
+
+function buildNav(){
+  const nav=document.getElementById('nav-list');
+  const allLi=document.createElement('li');
+  allLi.innerHTML=`<button class="nav-btn active" onclick="navClick('all',this)"><span class="nav-dot" style="background:var(--cypress)"></span>All questions<span class="nav-count">${DATA.length}</span></button>`;
+  nav.appendChild(allLi);
+  CATS.forEach(cat=>{
+    const count=DATA.filter(d=>d.cat===cat.id).length;
+    if(!count)return;
+    const li=document.createElement('li');
+    li.innerHTML=`<button class="nav-btn" onclick="navClick('${cat.id}',this)"><span class="nav-dot" style="background:${cat.color}"></span>${cat.label}<span class="nav-count">${count}</span></button>`;
+    nav.appendChild(li);
+  });
+}
+
+function navClick(catId,btn){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(catId==='all'){window.scrollTo({top:0,behavior:'smooth'});}
+  else{const el=document.getElementById('sec-'+catId);if(el){const y=el.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'});}}
+}
+
+function buildContent(term){
+  const content=document.getElementById('content');
+  content.innerHTML='';
+  let total=0;
+  CATS.forEach(cat=>{
+    const items=DATA.filter(d=>{
+      if(d.cat!==cat.id)return false;
+      if(!term)return true;
+      return d.q.toLowerCase().includes(term)||d.a.toLowerCase().includes(term);
+    });
+    if(!items.length)return;
+    total+=items.length;
+    const bgPale=cat.color+'18';
+    const sec=document.createElement('div');
+    sec.className='section-block';
+    sec.id='sec-'+cat.id;
+    sec.innerHTML=`
+      <div class="section-header">
+        <div class="section-icon" style="background:${bgPale}"><span>${cat.icon}</span></div>
+        <span class="section-title">${cat.label}</span>
+        <span class="section-count">${items.length} question${items.length!==1?'s':''}</span>
+      </div>
+      <div class="qa-list">
+        ${items.map((item,i)=>`
+          <div class="qa-card" id="qa-${item.id}">
+            <div class="qa-question" onclick="toggle(${item.id})">
+              <span class="qa-num">${String(i+1).padStart(2,'0')}</span>
+              <span class="qa-q-text">${highlight(item.q,term)}</span>
+              <span class="qa-toggle">
+                <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/>
+                </svg>
+              </span>
+            </div>
+            <div class="qa-answer">${highlight(item.a,term)}</div>
+          </div>`).join('')}
+      </div>`;
+    content.appendChild(sec);
+  });
+  if(!total){
+    content.innerHTML=`<div class="no-results"><p>No results for "<strong>${esc(term)}</strong>"</p></div>`;
+  }
+  document.getElementById('search-count').textContent=term?`${total} result${total!==1?'s':''}`:'' ;
+}
+
+function toggle(id){document.getElementById('qa-'+id).classList.toggle('open');}
+function filterAll(){buildContent(document.getElementById('search-input').value.toLowerCase().trim());}
+
+buildNav();
+buildContent('');
+</script>
+</body>
+</html>

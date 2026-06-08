@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apollo Corfu — Employee Handbook 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cypress: #2D4A3E;
+  --cypress-mid: #3D6355;
+  --cypress-light: #5A8A72;
+  --cypress-pale: #EEF4F1;
+  --cypress-soft: #D4E6DC;
+  --gold: #C4933A;
+  --gold-dark: #B8860B;
+  --gold-light: #E8BA6A;
+  --gold-pale: #FBF5E8;
+  --logo-gold: #C9A227;
+  --terracotta: #C4663A;
+  --terra-pale: #FAF0EB;
+  --text: #1C2B24;
+  --text-mid: #3D5449;
+  --text-light: #7A9B8A;
+  --border: #C8DDD3;
+  --bg: #F5F8F5;
+  --white: #FFFFFF;
+  --sidebar-w: 260px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Jost', sans-serif; background: var(--bg); color: var(--text); }
+
+/* ── COVER ── */
+.cover {
+  min-height: 100vh;
+  background: var(--cypress);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 4rem 2rem;
+  position: relative; overflow: hidden;
+}
+.cover::before {
+  content: ''; position: absolute;
+  width: 700px; height: 700px; border-radius: 50%;
+  border: 1px solid rgba(201,162,39,0.12);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.cover::after {
+  content: ''; position: absolute;
+  width: 1000px; height: 1000px; border-radius: 50%;
+  border: 1px solid rgba(201,162,39,0.06);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+
+
+
+.cover-eyebrow {
+  font-size: 11px; font-weight: 400;
+  color: var(--gold-light); letter-spacing: 0.25em;
+  text-transform: uppercase; margin-bottom: 1rem;
+  position: relative; z-index: 1;
+}
+.cover h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700; color: var(--white);
+  line-height: 1.1; letter-spacing: 0.02em; margin-bottom: 0.5rem;
+  position: relative; z-index: 1;
+}
+.cover h1 em { color: var(--gold-light); font-style: italic; font-weight: 400; }
+.cover-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 400; font-style: italic;
+  color: var(--gold-light); margin-bottom: 2.5rem;
+  position: relative; z-index: 1;
+}
+.cover-divider {
+  display: flex; align-items: center; gap: 12px;
+  justify-content: center; margin-bottom: 2.5rem;
+  position: relative; z-index: 1;
+}
+.cover-divider-line { width: 80px; height: 1px; background: var(--gold); opacity: 0.5; }
+.cover-divider-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.cover-meta {
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,0.55); letter-spacing: 0.06em; line-height: 2;
+  position: relative; z-index: 1;
+}
+.cover-meta strong { color: rgba(255,255,255,0.8); font-weight: 400; }
+.cover-btn {
+  margin-top: 3rem; display: inline-block;
+  padding: 14px 40px; background: var(--logo-gold);
+  color: var(--white); font-family: 'Jost', sans-serif;
+  font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; border: none; border-radius: 40px;
+  cursor: pointer; text-decoration: none; transition: background 0.2s;
+  position: relative; z-index: 1;
+}
+.cover-btn:hover { background: var(--gold-light); color: var(--cypress); }
+
+/* ── MAIN LAYOUT ── */
+.main-layout { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w); background: var(--cypress);
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; flex-shrink: 0;
+  display: flex; flex-direction: column;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(201,162,39,0.3); border-radius: 2px; }
+.sidebar-header {
+  padding: 1.25rem 1.25rem 0.75rem;
+  border-bottom: 1px solid rgba(201,162,39,0.2);
+  display: flex; align-items: center; gap: 10px;
+}
+
+
+.sidebar-text-wrap { display: flex; flex-direction: column; gap: 1px; }
+.sidebar-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 700; color: var(--white);
+}
+.sidebar-sub {
+  font-size: 9px; font-weight: 300;
+  color: var(--gold-light); letter-spacing: 0.12em; text-transform: uppercase;
+}
+.sidebar-label {
+  font-size: 9px; font-weight: 500;
+  color: rgba(255,255,255,0.3); letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 1rem 1.25rem 0.4rem;
+}
+.nav-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 1.25rem; cursor: pointer; text-decoration: none;
+  border-left: 3px solid transparent; transition: all 0.15s;
+}
+.nav-item:hover { background: rgba(255,255,255,0.06); border-left-color: rgba(201,162,39,0.4); }
+.nav-item.active { background: rgba(201,162,39,0.12); border-left-color: var(--logo-gold); }
+.nav-num { font-size: 10px; font-weight: 500; color: var(--logo-gold); min-width: 18px; padding-top: 2px; }
+.nav-text { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.75); line-height: 1.4; }
+.nav-item.active .nav-text { color: var(--white); font-weight: 500; }
+.lang-toggle {
+  display: flex; gap: 6px; padding: 1rem 1.25rem;
+  margin-top: auto; border-top: 1px solid rgba(201,162,39,0.15);
+}
+.lang-btn {
+  flex: 1; padding: 7px; border: 1px solid rgba(201,162,39,0.4);
+  border-radius: 6px; background: transparent; color: var(--gold-light);
+  font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500;
+  cursor: pointer; letter-spacing: 0.06em; transition: all 0.15s;
+}
+.lang-btn.active, .lang-btn:hover { background: var(--logo-gold); color: var(--white); border-color: var(--logo-gold); }
+
+/* ── CONTENT ── */
+.content { flex: 1; min-width: 0; padding: 3rem 3.5rem 5rem; max-width: 860px; }
+
+/* ── CHAPTERS ── */
+.chapter { display: none; animation: fadeIn 0.3s ease; }
+.chapter.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+
+.chapter-header { margin-bottom: 2.5rem; }
+.chapter-num { font-size: 11px; font-weight: 400; color: var(--logo-gold); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
+.chapter-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem; font-weight: 700; color: var(--cypress);
+  line-height: 1.15; letter-spacing: 0.01em; margin-bottom: 6px;
+  border-bottom: 2px solid var(--cypress-soft); padding-bottom: 1rem;
+}
+.chapter-title-gr {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 400; font-style: italic;
+  color: var(--text-light); margin-top: 4px; display: block;
+}
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem; font-weight: 600; color: var(--cypress);
+  margin: 2rem 0 0.75rem; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 13px; font-weight: 500; color: var(--cypress-mid); margin: 1.5rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+p { font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--text-mid); margin-bottom: 1rem; }
+
+/* ── BILINGUAL ── */
+.bilingual {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1.25rem 0;
+}
+.lang-en { background: var(--white); padding: 1.25rem 1.5rem; border-right: 1px solid var(--border); }
+.lang-gr { background: var(--cypress-pale); padding: 1.25rem 1.5rem; }
+.lang-tag { font-size: 9px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; display: block; }
+.lang-en .lang-tag { color: var(--logo-gold); }
+.lang-gr .lang-tag { color: var(--cypress-mid); }
+
+/* ── CALLOUTS ── */
+.callout { border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; display: flex; gap: 14px; align-items: flex-start; }
+.callout-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+.callout-body { flex: 1; }
+.callout-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.callout-text { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--text-mid); margin: 0; }
+.callout.gold { background: var(--gold-pale); border-left: 4px solid var(--logo-gold); }
+.callout.gold .callout-title { color: var(--gold-dark); }
+.callout.cypress { background: var(--cypress-pale); border-left: 4px solid var(--cypress); }
+.callout.cypress .callout-title { color: var(--cypress); }
+.callout.terra { background: var(--terra-pale); border-left: 4px solid var(--terracotta); }
+.callout.terra .callout-title { color: var(--terracotta); }
+
+/* ── TABLES ── */
+.info-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; }
+.info-table th { background: var(--cypress); color: var(--white); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; padding: 10px 14px; text-align: left; }
+.info-table td { padding: 10px 14px; font-size: 13.5px; font-weight: 300; color: var(--text-mid); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+.info-table tr:nth-child(even) td { background: var(--cypress-pale); }
+.info-table tr:last-child td { border-bottom: none; }
+
+/* ── LISTS ── */
+ul.handbook-list, ol.handbook-list { margin: 0.75rem 0 1rem; padding-left: 0; list-style: none; }
+ul.handbook-list li, ol.handbook-list li {
+  font-size: 13.5px; font-weight: 300; color: var(--text-mid);
+  line-height: 1.7; padding: 5px 0 5px 22px; position: relative;
+  border-bottom: 1px solid var(--cypress-pale);
+}
+ul.handbook-list li:last-child, ol.handbook-list li:last-child { border-bottom: none; }
+ul.handbook-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--logo-gold); position: absolute; left: 0; top: 13px; }
+ol.handbook-list { counter-reset: lc; }
+ol.handbook-list li { counter-increment: lc; }
+ol.handbook-list li::before { content: counter(lc); position: absolute; left: 0; top: 5px; font-size: 11px; font-weight: 500; color: var(--logo-gold); width: 16px; text-align: center; }
+
+/* ── DISCIPLINE ── */
+.discipline-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--white); }
+.discipline-item:first-child { border-radius: 10px 10px 0 0; }
+.discipline-item:last-child { border-radius: 0 0 10px 10px; border-bottom: none; }
+.discipline-item:nth-child(even) { background: var(--cypress-pale); }
+.disc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; margin-top: 6px; }
+.disc-text { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.6; }
+
+/* ── STEPS ── */
+.steps-list { display: flex; flex-direction: column; gap: 0; margin: 1rem 0; }
+.step-item { display: flex; gap: 16px; position: relative; }
+.step-item::before { content: ''; position: absolute; left: 15px; top: 32px; width: 2px; height: calc(100% - 16px); background: var(--border); }
+.step-item:last-child::before { display: none; }
+.step-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--cypress); color: var(--white); font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px; z-index: 1; }
+.step-body { padding: 4px 0 1.5rem; }
+.step-title { font-size: 14px; font-weight: 500; color: var(--cypress); margin-bottom: 3px; }
+.step-desc { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.65; }
+
+/* ── VALUES ── */
+.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 1.5rem 0; }
+.value-card { background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--cypress); border-radius: 10px; padding: 1.25rem; }
+.value-card:nth-child(2) { border-top-color: var(--logo-gold); }
+.value-card:nth-child(3) { border-top-color: var(--terracotta); }
+.value-card:nth-child(4) { border-top-color: var(--cypress-light); }
+.value-icon { font-size: 22px; margin-bottom: 8px; display: block; }
+.value-title { font-size: 14px; font-weight: 500; color: var(--cypress); margin-bottom: 4px; }
+.value-desc { font-size: 12.5px; font-weight: 300; color: var(--text-light); line-height: 1.6; margin: 0; }
+
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 1.5rem 0; }
+.stat-card { background: var(--cypress); border-radius: 10px; padding: 1.25rem; text-align: center; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--gold-light); display: block; line-height: 1; margin-bottom: 6px; }
+.stat-lbl { font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.65); letter-spacing: 0.06em; }
+
+/* ── WELCOME LETTER ── */
+.welcome-letter { background: var(--white); border: 1px solid var(--border); border-top: 4px solid var(--logo-gold); border-radius: 12px; padding: 2.5rem; margin-bottom: 2rem; }
+.welcome-letter p { font-size: 14px; line-height: 1.9; }
+.welcome-sig { margin-top: 2rem; font-style: italic; color: var(--cypress); }
+.welcome-sig strong { font-style: normal; font-family: 'Cormorant Garamond', serif; font-size: 18px; display: block; margin-top: 4px; }
+
+/* ── SIG PAGE ── */
+.sig-box { border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-top: 2rem; background: var(--white); }
+.sig-field { border-top: 1px solid var(--text); padding-top: 8px; margin-top: 3rem; }
+.sig-label { font-size: 12px; color: var(--text-light); letter-spacing: 0.06em; }
+.sig-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .main-layout { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; position: static; }
+  .content { padding: 2rem 1.25rem 4rem; }
+  .bilingual { grid-template-columns: 1fr; }
+  .lang-en { border-right: none; border-bottom: 1px solid var(--border); }
+  .sig-row { grid-template-columns: 1fr; }
+}
+@media print {
+  .sidebar { display: none; }
+  .chapter { display: block !important; page-break-before: always; }
+  .content { max-width: 100%; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div style="height:2rem"></div>
+  <p class="cover-eyebrow">Apollo Corfu · Ακτή Μεσογγής, Κέρκυρα</p>
+  <h1>Employee <em>Handbook</em></h1>
+  <div class="cover-subtitle">Εγχειρίδιο Υπαλλήλων</div>
+  <div class="cover-divider">
+    <div class="cover-divider-line"></div>
+    <div class="cover-divider-dot"></div>
+    <div class="cover-divider-line"></div>
+  </div>
+  <div class="cover-meta">
+    <strong>Edition 2 · 2026 Season</strong><br>
+    Approved by Philippos Stamelos, General Manager<br>
+    Rio Beach S.A. · VAT EL094186780
+  </div>
+  <button class="cover-btn" onclick="enterHandbook()">Open Handbook &rarr;</button>
+</div>
+
+<!-- MAIN -->
+<div class="main-layout" id="handbook" style="display:none">
+
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-text-wrap">
+      <span class="sidebar-logo">Apollo Corfu</span>
+      <span class="sidebar-sub">Handbook 2026</span>
+    </div>
+  </div>
+  <div class="sidebar-label">Contents</div>
+  <div id="nav-list"></div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-gr" onclick="setLang('gr')">ΕΛ</button>
+  </div>
+</nav>
+
+<main class="content" id="content-area"></main>
+</div>
+
+<script>
+const CHAPTERS = [
+  {
+    id:'welcome', num:'00', en:'Welcome', gr:'Καλωσόρισμα',
+    content: () => `
+      <div class="chapter-header">
+        <div class="chapter-num">Chapter 00</div>
+        <div class="chapter-title">Welcome to Apollo Corfu<span class="chapter-title-gr">Καλωσορίσατε στο Apollo Corfu</span></div>
+      </div>
+      <div class="welcome-letter">
+        <p>Dear Team Member,</p>
+        <p>It is with great pride and genuine warmth that we welcome you to <strong>Apollo Corfu</strong>. You are joining us at an exciting moment in our history — 2026 marks the beginning of our journey as our own independent brand, carrying forward nearly four decades of hospitality excellence on the beautiful shores of Messonghi, Corfu.</p>
+        <p>Since 1987, this hotel has been built on one belief: that the people who work here are our greatest asset. The quality of every guest's experience depends entirely on the dedication, warmth and character of our team. That means you matter — from your very first day to your last shift of the season.</p>
+        <p>This handbook has been written to give you everything you need: who we are, how we work, what we expect, and how we will support you in return. Please read it carefully, keep it close, and never hesitate to ask questions.</p>
+        <p>We are proud of what we have built here. We invite you to be proud of it too.</p>
+        <div class="welcome-sig">
+          With warm regards,<br>
+          <strong>Philippos Stamelos</strong>
+          General Manager, Apollo Corfu
+        </div>
+      </div>
+      <div class="welcome-letter" style="background:var(--cypress-pale);border-top-color:var(--cypress)">
+        <p>Αγαπητό Μέλος της Ομάδας μας,</p>
+        <p>Με μεγάλη χαρά σας καλωσορίζουμε στο <strong>Apollo Corfu</strong>. Μας βρίσκετε σε μια ιδιαίτερα σημαντική στιγμή — το 2026 σηματοδοτεί την έναρξη της δικής μας ανεξάρτητης πορείας ως brand, φέρνοντας μαζί μας σχεδόν τέσσερις δεκαετίες φιλοξενίας στην υπέροχη ακτή Μεσογγής της Κέρκυρας.</p>
+        <p>Από το 1987, αυτό το ξενοδοχείο χτίστηκε πάνω σε μια πεποίθηση: οι άνθρωποί μας είναι το πολυτιμότερο κεφάλαιό μας. Η ποιότητα κάθε εμπειρίας εξαρτάται από την αφοσίωση, τη ζεστασιά και τον χαρακτήρα της ομάδας μας — δηλαδή εσάς.</p>
+        <p>Αυτό το εγχειρίδιο δημιουργήθηκε για να σας δώσει όλα όσα χρειάζεστε. Διαβάστε το προσεκτικά και μη διστάσετε να ρωτήσετε οτιδήποτε.</p>
+        <div class="welcome-sig" style="color:var(--cypress-mid)">
+          Με εκτίμηση,<br>
+          <strong>Φίλιππος Σταμέλος</strong>
+          Γενικός Διευθυντής, Apollo Corfu
+        </div>
+      </div>
+    `
+  },
+  {
+    id:'identity', num:'01', en:'Who We Are', gr:'Ταυτότητά μας',
+    content: () => `
+      <div class="chapter-header">
+        <div class="chapter-num">Chapter 01</div>
+        <div class="chapter-title">Who We Are<span class="chapter-title-gr">Ταυτότητά μας</span></div>
+      </div>
+      <h2>Our Story · Η Ιστορία μας</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Apollo Corfu was founded in 1987 on the shores of Messonghi, in the south of Corfu. For nearly four decades, the property has welcomed guests from across Europe, building a reputation for warm Greek hospitality, excellent gastronomy, and a beautiful natural setting surrounded by 33,000m² of gardens, olive trees and the Ionian Sea.</p>
+          <p>In 2026, we step forward as our own independent brand — <strong>Apollo Corfu</strong>. In 2027, we will introduce our own new brand identity. We carry forward everything that made this place exceptional, investing in a comprehensive 4-phase renovation programme (currently between phases 2 and 3).</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Το Apollo Corfu ιδρύθηκε το 1987 στην ακτή Μεσογγής στη νότια Κέρκυρα. Για σχεδόν τέσσερις δεκαετίες φιλοξενεί επισκέπτες από όλη την Ευρώπη, οικοδομώντας φήμη για την ελληνική φιλοξενία, την εξαιρετική γαστρονομία και το φυσικό περιβάλλον με 33.000m² κήπων, ελαιόδεντρα και το Ιόνιο Πέλαγος.</p>
+          <p>Το 2026 ξεκινούμε ως ανεξάρτητο brand — <strong>Apollo Corfu</strong>. Το 2027 θα παρουσιάσουμε τη νέα μας brand ταυτότητα. Τρέχουμε 4φασικό πρόγραμμα ανακαίνισης (μεταξύ 2ης και 3ης φάσης).</p>
+        </div>
+      </div>
+
+      <h2>Key Facts · Βασικά Στοιχεία</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-num">1987</span><span class="stat-lbl">Year Founded</span></div>
+        <div class="stat-card"><span class="stat-num">330</span><span class="stat-lbl">Rooms</span></div>
+        <div class="stat-card"><span class="stat-num">45,000</span><span class="stat-lbl">m² Property</span></div>
+        <div class="stat-card"><span class="stat-num">5★</span><span class="stat-lbl">Category</span></div>
+        <div class="stat-card"><span class="stat-num">4</span><span class="stat-lbl">Restaurants</span></div>
+        <div class="stat-card"><span class="stat-num">5</span><span class="stat-lbl">Bars</span></div>
+      </div>
+
+      <h2>Our Mission · Αποστολή μας</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Our mission is to enrich the lives of our guests and our employees, creating unforgettable hospitality experiences filled with warmth, authenticity and care. Through exceptional facilities, outstanding gastronomy and legendary service, we exceed expectations every day and create memories that last a lifetime.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Αποστολή μας είναι να εμπλουτίζουμε τη ζωή των επισκεπτών και των εργαζομένων μας, δημιουργώντας αξέχαστες εμπειρίες φιλοξενίας γεμάτες ζεστασιά, αυθεντικότητα και φροντίδα. Με κορυφαίες εγκαταστάσεις, εξαιρετική γαστρονομία και θρυλική εξυπηρέτηση, ξεπερνούμε καθημερινά τις προσδοκίες και δημιουργούμε αναμνήσεις που διαρκούν μια ζωή.</p>
+        </div>
+      </div>
+
+      <h2>Our Values · Αξίες μας</h2>
+      <div class="values-grid">
+        <div class="value-card"><span class="value-icon">⭐</span><div class="value-title">Legendary Service</div><p class="value-desc">Every guest interaction is an opportunity to create a memory. We go beyond expectations, every single time.</p></div>
+        <div class="value-card"><span class="value-icon">🤝</span><div class="value-title">Warmth & Authenticity</div><p class="value-desc">We welcome every guest with genuine Greek warmth — not a script, but a feeling. Real care, every day.</p></div>
+        <div class="value-card"><span class="value-icon">🌿</span><div class="value-title">Corfu at Heart</div><p class="value-desc">We celebrate our island's culture, produce and traditions — from the organic farm to the restaurant table.</p></div>
+        <div class="value-card"><span class="value-icon">📈</span><div class="value-title">Continuous Growth</div><p class="value-desc">We invest in our people and our property — always learning, always improving, never standing still.</p></div>
+      </div>
+
+      <h2>Ownership & General Management</h2>
+      <table class="info-table">
+        <tr><th>Role</th><th>Name</th></tr>
+        <tr><td>Owner</td><td>Mr Konstantinos Kontaxis</td></tr>
+        <tr><td>Owner</td><td>Mr Nicholaos Toumpouros</td></tr>
+        <tr><td>Owner</td><td>Mr Manolis Mprakatsoulas</td></tr>
+        <tr><td><strong>General Manager</strong></td><td><strong>Philippos Stamelos</strong></td></tr>
+      </table>
+    `
+  },
+  {
+    id:'property', num:'02', en:'The Property', gr:'Το Ξενοδοχείο',
+    content: () => `
+      <div class="chapter-header">
+        <div class="chapter-num">Chapter 02</div>
+        <div class="chapter-title">The Property<span class="chapter-title-gr">Το Ξενοδοχείο</span></div>
+      </div>
+
+      <h2>Restaurants · Εστιατόρια</h2>
+      <table class="info-table">
+        <tr><th>Restaurant</th><th>Concept</th><th>Hours</th></tr>
+        <tr><td><strong>Main Restaurant</strong></td><td>International buffet · Greek influences · show cooking</td><td>Breakfast 06:30–10:30 · Lunch 13:00–15:00 · Dinner 18:30–21:30</td></tr>
+        <tr><td><strong>Asador</strong></td><td>Farm-to-table · BIO Apollo Farm produce · à la carte</td><td>Breakfast 08:00–12:00 · Lunch 13:30–16:30 · Dinner 19:00–22:00</td></tr>
+        <tr><td><strong>La Cantina</strong></td><td>Authentic Italian à la carte · open-air amphitheatre</td><td>Dinner 19:00–22:30</td></tr>
+        <tr><td><strong>Coryfo by Ettore Botrini</strong></td><td>Michelin-starred · creative Corfiot fine dining</td><td>Dinner 19:30–23:00</td></tr>
+      </table>
+
+      <h2>Bars · Μπαρ</h2>
+      <table class="info-table">
+        <tr><th>Bar</th><th>Hours</th><th>Notes</th></tr>
+        <tr><td><strong>Lobby Bar</strong></td><td>09:00–01:00</td><td>Main all-day lounge</td></tr>
+        <tr><td><strong>Blue Bar</strong></td><td>10:00–23:00</td><td>Pool · evening entertainment</td></tr>
+        <tr><td><strong>Signature Bar</strong></td><td>10:00–18:00</td><td>Adults only · Quiet Zone</td></tr>
+        <tr><td><strong>Pool Bar / Beach Bar</strong></td><td>10:00–18:00</td><td>Weather permitting (Beach Bar)</td></tr>
+      </table>
+
+      <div class="callout gold">
+        <span class="callout-icon">📋</span>
+        <div class="callout-body">
+          <div class="callout-title">Restaurant Reservations — Exclusivi System</div>
+          <p class="callout-text">All restaurant reservations are made exclusively through the <strong>Exclusivi</strong> system. No other booking method is accepted. Maintenance issues are also logged in Exclusivi.</p>
+        </div>
+      </div>
+
+      <h2>Themed Dinner Nights · Θεματικές Βραδιές</h2>
+      <p style="font-size:13px;color:var(--text-light);margin-bottom:0.5rem">All themed dinners take place at <strong>Soleni Restaurant</strong> during the evening buffet (18:30–21:30).</p>
+      <table class="info-table">
+        <tr><th>Day · Ημέρα</th><th>Theme · Θέμα</th></tr>
+        <tr><td>Sunday · Κυριακή</td><td>Greek Night · Ελληνική Βραδιά</td></tr>
+        <tr><td>Tuesday · Τρίτη</td><td>Seafood Night · Ψαροβραδιά</td></tr>
+        <tr><td>Friday · Παρασκευή</td><td>Asian Night · Ασιατική Βραδιά</td></tr>
+      </table>
+
+      <h2>Live Music Schedule · Μουσικές Βραδιές</h2>
+      <table class="info-table">
+        <tr><th>Day</th><th>Act</th><th>Venue & Time</th></tr>
+        <tr><td>Monday</td><td>Pop & Jazz — Corfu Duo</td><td>Lobby Bar · 20:00–22:00</td></tr>
+        <tr><td>Tuesday</td><td>Legends</td><td>Lobby Bar · 20:00–21:00 (special duration)</td></tr>
+        <tr><td>Wednesday</td><td>Midnight Trio</td><td>Lobby Bar · 20:00–22:00</td></tr>
+        <tr><td>Thursday</td><td>Jazz The Two Of Us</td><td>Lobby Bar · 20:00–22:00</td></tr>
+        <tr><td>Friday</td><td>Ellie Rocks</td><td>Lobby Bar · 20:00–22:00</td></tr>
+        <tr><td>Saturday</td><td>No event</td><td>—</td></tr>
+        <tr><td>Sunday</td><td>Greek Music & Dancers</td><td>Blue Bar · 20:00–22:00</td></tr>
+      </table>
+
+      <h2>Apollo Organic Farm · Βιολογική Φάρμα</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>The Apollo Organic Farm supplies fresh vegetables and aromatic herbs daily to the Asador restaurant, reinforcing our farm-to-table philosophy. Every <strong>Thursday at 09:00</strong>, guests have the opportunity to join a unique harvest experience — picking seasonal vegetables directly from the farm themselves. The Asador chef then prepares a fresh omelette in front of them using the ingredients they have just collected. Places are limited and reservation via <strong>Exclusivi</strong> is required.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Η βιολογική φάρμα του ξενοδοχείου προσφέρει καθημερινά φρέσκα λαχανικά και αρωματικά βότανα στο εστιατόριο Asador, ενισχύοντας τη φιλοσοφία «από τη φάρμα στο τραπέζι». Κάθε <strong>Πέμπτη στις 09:00</strong>, οι επισκέπτες έχουν την ευκαιρία να συμμετάσχουν σε μια μοναδική εμπειρία συγκομιδής, συλλέγοντας οι ίδιοι εποχικά λαχανικά απευθείας από τη φάρμα. Στη συνέχεια, ο σεφ του Asador ετοιμάζει μπροστά τους μια φρέσκια ομελέτα με τα υλικά που μόλις συνέλεξαν. Οι θέσεις είναι περιορισμένες και απαιτείται κράτηση μέσω της εφαρμογής <strong>Exclusivi</strong>.</p>
+        </div>
+      </div>
+
+      <h2>Pools & Beach · Πισίνες & Παραλία</h2>
+      <ul class="handbook-list">
+        <li>Main Pool: 850m² · max depth 1.40m (lobby area)</li>
+        <li>Blue Bar Pool: 390m² · max depth 1.80m</li>
+        <li>Adults-Only Pool — Quiet Zone: 370m² · children 7+ permitted · Jacuzzi for guests 16+ only</li>
+        <li>Children's Pools (x2) with waterslides · Aqua Park: 11:00–14:00 &amp; 16:00–19:00</li>
+        <li>Private pebbly beach · sunbeds &amp; umbrellas €6/set · small sand section</li>
+      </ul>
+
+      <div class="callout terra">
+        <span class="callout-icon">🚫</span>
+        <div class="callout-body">
+          <div class="callout-title">Glass at Pools — Strictly Prohibited · Γυαλί στις Πισίνες — Αυστηρά Απαγορευμένο</div>
+          <p class="callout-text">Polycarbonate cups are mandatory in all pool areas. Glass is strictly prohibited for safety reasons. All cups must be returned to the bars after use. This rule applies to guests and staff equally. / Πολυκαρμπονικά ποτήρια υποχρεωτικά σε όλες τις πισίνες. Γυαλί απαγορεύεται αυστηρά. Τα ποτήρια επιστρέφονται στα μπαρ.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id:'employment', num:'03', en:'Employment Policies', gr:'Πολιτικές Εργασίας',
+    content: () => `
+      <div class="chapter-header">
+        <div class="chapter-num">Chapter 03</div>
+        <div class="chapter-title">Employment Policies<span class="chapter-title-gr">Πολιτικές Εργασίας</span></div>
+      </div>
+      <div class="callout cypress">
+        <span class="callout-icon">ℹ️</span>
+        <div class="callout-body">
+          <div class="callout-title">About This Handbook</div>
+          <p class="callout-text">This handbook is a guide — not an employment contract. Apollo Corfu (Rio Beach S.A.) reserves the right to update policies with or without prior notice. All policies are subject to Greek Labour Law.</p>
+        </div>
+      </div>
+
+      <h2>Hiring & Equal Opportunity · Προσλήψεις & Ίσες Ευκαιρίες</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Apollo Corfu is an equal opportunity employer. We do not tolerate any form of discrimination based on race, gender, age, nationality, religion, sexual orientation or disability. All employees must be legally authorised to work in Greece and must provide valid documentation by their start date. All bar and service staff must be a minimum of 18 years of age in accordance with Greek law.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Το Apollo Corfu είναι εργοδότης ίσων ευκαιριών. Δεν ανεχόμαστε καμία μορφή διάκρισης λόγω φυλής, φύλου, ηλικίας, εθνικότητας, θρησκείας, σεξουαλικού προσανατολισμού ή αναπηρίας. Όλοι οι εργαζόμενοι πρέπει να είναι εξουσιοδοτημένοι να εργαστούν στην Ελλάδα. Σερβιτόροι και μπάρμαν πρέπει να είναι τουλάχιστον 18 ετών.</p>
+        </div>
+      </div>
+
+      <h2>Probationary Period · Δοκιμαστική Περίοδος</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>All new employees begin with a <strong>30-day adaptation period</strong>. During this time you will receive full training, your integration into the team will be assessed, and both parties may determine whether the role is the right fit. Full management support is available throughout.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Όλοι οι νέοι εργαζόμενοι ξεκινούν με <strong>30ήμερη δοκιμαστική περίοδο</strong>. Κατά τη διάρκειά της λαμβάνεται πλήρης εκπαίδευση και αξιολογείται η ένταξη στην ομάδα. Και οι δύο πλευρές μπορούν να αποφασίσουν για τη συνέχεια της συνεργασίας.</p>
+        </div>
+      </div>
+
+      <h2>Work Schedules · Προγράμματα Εργασίας</h2>
+      <ul class="handbook-list">
+        <li>Schedules are posted every <strong>Friday</strong> for the following week. / Αναρτώνται κάθε <strong>Παρασκευή</strong>.</li>
+        <li>Arrive 5 minutes before your shift to clock in on time. / Να φτάνετε 5 λεπτά νωρίτερα.</li>
+        <li>Entry and exit must be through the designated employee entrance. / Είσοδος/έξοδος μόνο από την εγκεκριμένη είσοδο προσωπικού.</li>
+        <li>Schedule changes require a replacement and written manager approval. / Αλλαγές μόνο με αντικαταστάτη και έγκριση διευθυντή.</li>
+        <li>During peak season and events, leave requests may not be approved. / Κατά peak season τα αιτήματα άδειας ενδέχεται να μην εγκρίνονται.</li>
+      </ul>
+
+      <h2>Absences & Tardiness · Απουσίες & Καθυστέρηση</h2>
+      <ul class="handbook-list">
+        <li>Notify your supervisor at least <strong>3 hours</strong> before your shift if late or absent. / Ειδοποίηση τουλάχιστον <strong>3 ώρες</strong> πριν.</li>
+        <li>Two consecutive no-call/no-show shifts = voluntary resignation. / Δύο απουσίες χωρίς ειδοποίηση = παραίτηση.</li>
+        <li>Leave requests must be submitted at least <strong>4 weeks in advance</strong>. / Αιτήσεις άδειας τουλάχιστον <strong>4 εβδομάδες</strong> πριν.</li>
+        <li>Return from medical leave requires a doctor's certificate. / Επιστροφή από αναρρωτική άδεια απαιτεί ιατρικό πιστοποιητικό.</li>
+      </ul>
+
+      <h2>Payroll · Μισθοδοσία</h2>
+      <ul class="handbook-list">
+        <li>Payslips available on the <strong>8th of each month</strong>, 09:00–14:00. / Μισθοδοσία στις <strong>8 κάθε μήνα</strong>, 09:00–14:00.</li>
+        <li>Overtime compensated per Greek Labour Law. / Υπερωρίες σύμφωνα με τον Εργατικό Νόμο.</li>
+        <li>Notify HR of any change of address promptly. / Ενημερώνετε το HR για αλλαγή διεύθυνσης αμέσως.</li>
+      </ul>
+
+      <h2>Resignation · Παραίτηση</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Please provide <strong>four weeks' written notice</strong> before leaving. This allows us to find a replacement in time and ensures you remain eligible for re-hire. Professionalism at the end of employment reflects the same character we value throughout.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Παρακαλούμε να δώσετε <strong>ειδοποίηση τεσσάρων εβδομάδων γραπτώς</strong> πριν την αποχώρηση. Αυτό διασφαλίζει επαγγελματική αποχώρηση και επιλεξιμότητα για επαναπρόσληψη.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id:'conduct', num:'04', en:'Standards & Conduct', gr:'Πρότυπα Συμπεριφοράς',
+    content: () => `
+      <div class="chapter-header">
+        <div class="chapter-num">Chapter 04</div>
+        <div class="chapter-title">Standards & Conduct<span class="chapter-title-gr">Πρότυπα Συμπεριφοράς</span></div>
+      </div>
+
+      <h2>Dress Code · Κώδικας Ενδυμασίας</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <ul class="handbook-list">
+            <li>Clean black shoes with non-slip soles at all times.</li>
+            <li>Full-length trousers with a belt.</li>
+            <li>Clean, pressed long-sleeved shirts or your department uniform.</li>
+            <li>Hair clean and neatly groomed; long hair tied back in F&amp;B areas.</li>
+            <li>Nails clean and trimmed. Beards neatly maintained.</li>
+            <li>Minimal, tasteful jewellery only.</li>
+            <li>Name badge worn and visible at all times.</li>
+          </ul>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <ul class="handbook-list">
+            <li>Καθαρά μαύρα παπούτσια με αντιολισθητικές σόλες.</li>
+            <li>Μακριά παντελόνια και ζώνη.</li>
+            <li>Καθαρά, σιδερωμένα μακρυμάνικα πουκάμισα ή στολή τμήματος.</li>
+            <li>Περιποιημένα μαλλιά · δεμένα σε χώρους F&amp;B.</li>
+            <li>Καθαρά νύχια · περιποιημένο μούσι.</li>
+            <li>Διακριτικά κοσμήματα μόνο.</li>
+            <li>Ταμπελάκι ονόματος ορατό ανά πάσα στιγμή.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Guest Service Standards · Εξυπηρέτηση Πελατών</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>The guest always comes first. When a guest approaches you, stop what you are doing, make eye contact, smile, and give your full attention. Never say "that's not my department" — find the solution or find the person who can.</p>
+          <p><strong>Telephone:</strong> Answer within two rings — "Good morning / Good evening, Apollo Corfu — how may I help you?"</p>
+          <p><strong>Complaints:</strong> Never become defensive. Apologise sincerely, listen fully, escalate to a manager if needed. Every complaint is an opportunity to recover and impress.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Ο πελάτης έχει πάντα προτεραιότητα. Σταματήστε αυτό που κάνετε, κάντε οπτική επαφή, χαμογελάστε και δώστε πλήρη προσοχή. Ποτέ «δεν είναι δική μου αρμοδιότητα» — βρείτε τη λύση ή τον κατάλληλο συνάδελφο.</p>
+          <p><strong>Τηλέφωνο:</strong> Απαντήστε εντός δύο κουδουνισμάτων — «Καλημέρα / Καλησπέρα, Apollo Corfu, πώς μπορώ να σας βοηθήσω;»</p>
+          <p><strong>Παράπονα:</strong> Μην αμυνθείτε. Ζητήστε συγγνώμη ειλικρινά, ακούστε, ζητήστε βοήθεια από διευθυντή αν χρειάζεται.</p>
+        </div>
+      </div>
+
+      <h2>Prohibited Conduct · Απαγορευμένη Συμπεριφορά</h2>
+      <p style="font-size:13px;color:var(--terracotta);font-weight:500;margin-bottom:1rem">The following may result in immediate dismissal without prior written warning. · Τα παρακάτω μπορεί να οδηγήσουν σε άμεση απόλυση χωρίς γραπτή προειδοποίηση.</p>
+      <div>
+        ${[
+          'Providing false information during hiring, leave or sick leave. / Παροχή ψευδών πληροφοριών κατά την πρόσληψη ή την άδεια.',
+          'No-call/no-show for a scheduled shift. / Απουσία από βάρδια χωρίς ειδοποίηση.',
+          'Clocking in or out for another employee. / Χτύπημα κάρτας για άλλον εργαζόμενο.',
+          'Leaving before end of shift without manager approval. / Αποχώρηση πριν τη λήξη βάρδιας χωρίς έγκριση.',
+          'Theft of any kind — guest, colleague, or hotel property. / Κλοπή οποιαδήποτε φύσης.',
+          'Use, distribution or possession of illegal substances on premises. / Χρήση ή κατοχή παράνομων ουσιών.',
+          'Harassment of any kind toward a guest or colleague. / Παρενόχληση πελάτη ή συναδέλφου.',
+          'Violence, threats or offensive language. / Βία, απειλές ή προσβλητική γλώσσα.',
+          'Gambling on hotel premises. / Τζόγος στις εγκαταστάσεις.',
+          'Disclosing confidential hotel information to outside parties. / Αποκάλυψη εμπιστευτικών πληροφοριών.',
+          'Failure to follow reasonable management instructions. / Άρνηση συμμόρφωσης με οδηγίες.',
+          'Non-compliance with uniform and grooming standards. / Μη συμμόρφωση με τον κώδικα ενδυμασίας.',
+          'Failure to report safety hazards, accidents or injuries immediately. / Μη αναφορά κινδύνων ασφαλείας ή ατυχημάτων.',
+          'Smoking or eating in non-designated areas. / Κάπνισμα ή φαγητό σε μη εγκεκριμένους χώρους.',
+          'Consistent failure to clock in/out accurately. / Συστηματική αδυναμία σωστής χρονομέτρησης.',
+        ].map(t => `<div class="discipline-item"><div class="disc-dot"></div><div class="disc-text">${t}</div></div>`).join('')}
+      </div>
+
+      <h2>Progressive Discipline · Πειθαρχικές Ενέργειες</h2>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-circle">1</div><div class="step-body"><div class="step-title">Verbal Warning ×2 · Προφορική Προειδοποίηση</div><div class="step-desc">Two verbal warnings with clear explanation and expected correction. / Δύο προφορικές προειδοποιήσεις με σαφή εξήγηση.</div></div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-body"><div class="step-title">1st Written Warning · 1η Γραπτή Προειδοποίηση</div><div class="step-desc">Formal written documentation of non-compliance. / Γραπτή καταγραφή της μη συμμόρφωσης.</div></div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-body"><div class="step-title">2nd Written Warning · 2η Γραπτή Προειδοποίηση</div><div class="step-desc">More serious warning. Employee informed that a third will result in termination. / Αυστηρότερη. Ο εργαζόμενος ενημερώνεται ότι η τρίτη οδηγεί σε απόλυση.</div></div></div>
+        <div class="step-item"><div class="step-circle" style="background:var(--terracotta)">4</div><div class="step-body"><div class="step-title">3rd Written Warning = Dismissal · Απόλυση</div><div class="step-desc">Employee may be dismissed without severance. Warnings do not result in wage deductions. / Ο εργαζόμενος μπορεί να απολυθεί χωρίς αποζημίωση. Οι προειδοποιήσεις δεν μειώνουν τον μισθό.</div></div></div>
+      </div>
+
+      <h2>Harassment Policy · Πολιτική Παρενόχλησης</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Apollo Corfu is committed to a workplace free from all forms of harassment — including sexual harassment. Any unwanted physical contact, verbal comments, or conduct of a sexual or discriminatory nature is strictly prohibited and treated as a serious disciplinary matter. Any employee who experiences or witnesses harassment should report it immediately and in confidence to the General Manager.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Το Apollo Corfu δεσμεύεται για ένα εργασιακό περιβάλλον απαλλαγμένο από κάθε μορφή παρενόχλησης, συμπεριλαμβανομένης της σεξουαλικής. Οποιαδήποτε ανεπιθύμητη επαφή ή διακριτική συμπεριφορά απαγορεύεται αυστηρά. Αναφορές γίνονται εμπιστευτικά στον Γενικό Διευθυντή.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id:'benefits', num:'05', en:'Benefits & Leave', gr:'Παροχές & Άδειες',
+    content: () => `
+      <div class="chapter-header">
+        <div class="chapter-num">Chapter 05</div>
+        <div class="chapter-title">Benefits & Leave<span class="chapter-title-gr">Παροχές & Άδειες</span></div>
+      </div>
+
+      <h2>Annual Leave · Ετήσια Άδεια</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>All full-time employees who have completed <strong>11 consecutive months</strong> are entitled to one month of paid annual leave. Submit leave requests to your supervisor; they must be approved by the hotel manager at least 4 weeks in advance.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Όλοι οι πλήρους απασχόλησης εργαζόμενοι που έχουν συμπληρώσει <strong>11 συνεχείς μήνες</strong> δικαιούνται ένα μήνα άδειας μετ' αποδοχών. Αιτήσεις τουλάχιστον 4 εβδομάδες πριν, με έγκριση από τον Γενικό Διευθυντή.</p>
+        </div>
+      </div>
+
+      <h2>Family & Medical Leave · Οικογενειακή & Ιατρική Άδεια</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Employees with at least 3 months of service may apply for unpaid leave for: birth or adoption of a child, care of a seriously ill family member, or a serious personal illness. Duration: up to <strong>12 weeks within 12 months</strong>. Notify management as soon as possible.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Εργαζόμενοι με τουλάχιστον 3 μήνες υπηρεσίας μπορούν να λάβουν άδεια άνευ αποδοχών για γέννηση/υιοθεσία, φροντίδα σοβαρά ασθενούς ή σοβαρή ασθένεια. Διάρκεια έως <strong>12 εβδομάδες σε 12 μήνες</strong>.</p>
+        </div>
+      </div>
+
+      <h2>Performance Reviews · Αξιολογήσεις Απόδοσης</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>All employees receive written and verbal performance reviews <strong>twice per season</strong> — in June and September. Reviews recognise achievements, identify areas for improvement, and may inform salary adjustments. They are also your opportunity to discuss your goals with your supervisor.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Όλοι οι εργαζόμενοι αξιολογούνται <strong>δύο φορές τη σεζόν</strong> — Ιούνιο και Σεπτέμβριο. Αναγνωρίζονται επιτεύγματα, εντοπίζονται σημεία βελτίωσης και ενδέχεται να επηρεαστεί η αμοιβή. Είναι επίσης ευκαιρία για να συζητήσετε τους στόχους σας.</p>
+        </div>
+      </div>
+
+      <h2>Employee Meals & Benefits · Γεύματα & Παροχές</h2>
+      <ul class="handbook-list">
+        <li>Meals provided in the staff restaurant during scheduled breaks. / Γεύματα στο εστιατόριο προσωπικού κατά τα προγραμματισμένα διαλείμματα.</li>
+        <li>Open Door Policy: if a concern cannot be resolved with your supervisor, you may speak directly with the General Manager. / Εάν δεν μπορείτε να επιλύσετε ένα ζήτημα με τον προϊστάμενό σας, μπορείτε να απευθυνθείτε στον Γενικό Διευθυντή.</li>
+      </ul>
+
+      <h2>Workplace Injury · Εργατικά Ατυχήματα</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Any workplace injury must be reported immediately to your supervisor. If absence is required, the finance department will advise you on your entitlements under Greek Labour Law.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Κάθε εργατικό ατύχημα αναφέρεται αμέσως στον υπεύθυνο. Εάν απαιτηθεί απουσία, το λογιστήριο θα σας ενημερώσει για τα δικαιώματά σας.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id:'safety', num:'06', en:'Safety & Health', gr:'Ασφάλεια & Υγεία',
+    content: () => `
+      <div class="chapter-header">
+        <div class="chapter-num">Chapter 06</div>
+        <div class="chapter-title">Safety & Health<span class="chapter-title-gr">Ασφάλεια & Υγεία</span></div>
+      </div>
+
+      <div class="callout terra">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <div class="callout-title">Safety is Everyone's Responsibility · Η Ασφάλεια είναι Ευθύνη Όλων</div>
+          <p class="callout-text">A safe workplace is a shared commitment. Never ignore a hazard — report it immediately. Your colleagues, guests, and you depend on it. / Μη αγνοείτε ποτέ έναν κίνδυνο. Αναφέρτε τον αμέσως.</p>
+        </div>
+      </div>
+
+      <h2>General Safety Rules · Γενικοί Κανόνες Ασφαλείας</h2>
+      <ul class="handbook-list">
+        <li>Clean up any spill immediately — wet floors cause falls. / Καθαρίστε διαρροές αμέσως.</li>
+        <li>Walk — never run — in all hotel areas. / Περπατάτε πάντα, ποτέ μην τρέχετε.</li>
+        <li>Wear non-slip footwear at all times. / Φοράτε αντιολισθητικά παπούτσια.</li>
+        <li>Report defective equipment immediately to your supervisor. / Αναφέρετε ελαττωματικό εξοπλισμό αμέσως.</li>
+        <li>Any accident or injury must be reported immediately to management. / Κάθε ατύχημα αναφέρεται άμεσα στη διοίκηση.</li>
+        <li>Know the location of fire extinguishers and emergency exits in your work area. / Γνωρίστε τους πυροσβεστήρες και τις εξόδους κινδύνου.</li>
+      </ul>
+
+      <h2>Food Safety · Ασφάλεια Τροφίμων</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Apollo Corfu holds <strong>ISO 22000, HACCP, GHP and Codex Alimentarius</strong> certifications. Safe food handling is mandatory for all staff, regardless of department — including proper hand hygiene, temperature controls, allergen awareness, and correct storage. Non-compliance is a serious disciplinary matter.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Το Apollo Corfu κατέχει πιστοποιήσεις <strong>ISO 22000, HACCP, GHP και Codex Alimentarius</strong>. Οι διαδικασίες ασφαλούς χειρισμού τροφίμων είναι υποχρεωτικές για όλο το προσωπικό. Η μη συμμόρφωση αντιμετωπίζεται πειθαρχικά.</p>
+        </div>
+      </div>
+
+      <h2>Sustainability · Βιωσιμότητα</h2>
+      <div class="bilingual">
+        <div class="lang-en"><span class="lang-tag">English</span>
+          <p>Apollo Corfu holds the <strong>Green Key</strong> certification. Every team member plays a role: switching off lights and equipment when not in use, avoiding unnecessary water waste, separating waste correctly, and supporting our farm-to-table philosophy.</p>
+        </div>
+        <div class="lang-gr"><span class="lang-tag">Ελληνικά</span>
+          <p>Το Apollo Corfu κατέχει πιστοποίηση <strong>Green Key</strong>. Κάθε εργαζόμενος συμβάλλει: σβήνει φώτα, αποφεύγει σπατάλη νερού, χωρίζει σωστά απόβλητα και υποστηρίζει τη φιλοσοφία farm-to-table.</p>
+        </div>
+      </div>
+
+      <h2>Doctor On Call · Ιατρός κατ' Επικλήση</h2>
+      <p>A doctor on call is available throughout the season. In any medical emergency, contact reception immediately. / Ιατρός κατ' επικλήση καθ' όλη τη σεζόν. Σε ιατρική έκτακτη ανάγκη, επικοινωνήστε αμέσως με τη reception.</p>
+    `
+  }
+];
+
+let currentLang = 'en';
+let currentChapter = 'welcome';
+
+function enterHandbook() {
+  document.getElementById('cover').style.display = 'none';
+  document.getElementById('handbook').style.display = 'flex';
+  buildNav();
+  showChapter('welcome');
+}
+
+function buildNav() {
+  const nav = document.getElementById('nav-list');
+  nav.innerHTML = CHAPTERS.map(ch => `
+    <a class="nav-item${ch.id === currentChapter ? ' active' : ''}" onclick="showChapter('${ch.id}')" href="javascript:void(0)">
+      <span class="nav-num">${ch.num}</span>
+      <span class="nav-text">${currentLang === 'en' ? ch.en : ch.gr}</span>
+    </a>
+  `).join('');
+}
+
+function showChapter(id) {
+  currentChapter = id;
+  const ch = CHAPTERS.find(c => c.id === id);
+  document.getElementById('content-area').innerHTML = `<div class="chapter active">${ch.content()}</div>`;
+  window.scrollTo(0,0);
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('onclick').includes(`'${id}'`));
+  });
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-gr').classList.toggle('active', lang==='gr');
+  buildNav();
+}
+</script>
+</body>
+</html>
