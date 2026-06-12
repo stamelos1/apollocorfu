@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asador Farm to Flame — Apollo Corfu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --terra:#8B4A3A;--terra-mid:#A05A46;--terra-light:#C4845A;
+  --terra-pale:#FAF0EB;--terra-soft:#EDD8CE;
+  --cream:#F7F2EC;--cream-dark:#EDE5D8;--ivory:#FDFBF7;
+  --charcoal:#2A2118;--charcoal-mid:#4A3828;--charcoal-light:#7A6A58;
+  --gold:#C4933A;--gold-pale:#FBF5E8;--green:#3D5A3E;
+  --text:#1E1408;--text-mid:#4A3820;--text-light:#7A6848;
+  --border:#DDD0C0;--white:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);max-width:100%;overflow-x:hidden}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--charcoal);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,#3A2A1A 0%,#1A120A 70%)}
+.hero::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;border:1px solid rgba(196,147,58,0.1);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero::after{content:'';position:absolute;width:900px;height:900px;border-radius:50%;border:1px solid rgba(196,147,58,0.05);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-icon{width:80px;height:80px;margin:0 auto 2rem}
+.hero-icon svg{width:100%;height:100%}
+.hero-label{font-size:10px;font-weight:400;color:var(--gold);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:1rem;display:block}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;color:#fff;line-height:1;letter-spacing:0.04em;margin-bottom:0.5rem}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;font-style:italic;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2rem}
+.hero-divider{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:2rem}
+.hero-line{width:60px;height:1px;background:var(--gold);opacity:0.5}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.hero-desc{font-size:15px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.9;max-width:580px;margin:0 auto 2.5rem}
+.hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-badge{font-size:11px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,147,58,0.4);padding:6px 16px;border-radius:20px}
+
+/* NAV */
+.nav-wrap{background:var(--charcoal);border-bottom:1px solid rgba(196,147,58,0.2);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;padding:0 2rem;overflow-x:auto}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#fff;letter-spacing:0.08em;margin-right:1.5rem;white-space:nowrap;padding:1rem 0}
+.nav-logo span{color:var(--gold);font-style:italic;font-weight:400;font-size:11px;display:block;letter-spacing:0.15em;text-transform:uppercase}
+.nav-tabs{display:flex}
+.nav-tab{padding:1rem 1rem;font-size:11px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.45);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.15s}
+.nav-tab:hover{color:rgba(255,255,255,0.8)}
+.nav-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* PDF BAR */
+.pdf-bar{background:var(--charcoal);padding:0.85rem 2rem;border-bottom:1px solid rgba(196,147,58,0.15);display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.pdf-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 18px;background:transparent;border:1px solid rgba(196,147,58,0.5);border-radius:20px;color:var(--gold);font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.2s}
+.pdf-btn:hover{background:rgba(196,147,58,0.12)}
+
+/* CONTENT */
+.content{max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem}
+.section{display:none;animation:fadeIn 0.3s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:3rem;margin-bottom:3rem;align-items:start}
+.about-text h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--charcoal);line-height:1.2;margin-bottom:1.5rem}
+.about-text p{font-size:14px;font-weight:300;color:var(--text-light);line-height:1.95;margin-bottom:1rem}
+.quote-block{border-left:3px solid var(--gold);padding:1rem 1.5rem;margin:1.5rem 0;background:var(--gold-pale);border-radius:0 8px 8px 0}
+.quote-block p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;font-style:italic;color:var(--charcoal);line-height:1.7;margin:0}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.5rem}
+.stat-card{background:var(--charcoal);border-radius:10px;padding:1.25rem;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--gold);display:block;line-height:1;margin-bottom:6px}
+.stat-lbl{font-size:11px;font-weight:300;color:rgba(255,255,255,0.6);letter-spacing:0.06em}
+
+.info-cards{display:flex;flex-direction:column;gap:12px}
+.info-card{background:var(--ivory);border:1px solid var(--border);border-left:4px solid var(--terra);border-radius:10px;padding:1.25rem 1.5rem}
+.info-card:nth-child(2){border-left-color:var(--gold)}
+.info-card:nth-child(3){border-left-color:var(--green)}
+.info-card-title{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);margin-bottom:8px}
+.info-card:nth-child(2) .info-card-title{color:var(--gold)}
+.info-card:nth-child(3) .info-card-title{color:var(--green)}
+.info-card p{font-size:13px;font-weight:300;color:var(--text-light);line-height:1.75;margin:0}
+.info-card strong{color:var(--text);font-weight:500}
+
+.farm-hl{background:var(--charcoal);border-radius:14px;padding:2.5rem;margin-bottom:3rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center}
+.farm-icon-wrap{display:flex;align-items:center;justify-content:center;width:80px;height:80px;border:2px solid var(--gold);border-radius:50%}
+.farm-hl h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:#fff;margin-bottom:8px}
+.farm-hl p{font-size:13.5px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.8;margin-bottom:8px}
+.farm-badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,147,58,0.4);padding:4px 12px;border-radius:20px;margin-top:8px}
+
+/* MENU */
+.menu-header{text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.menu-header h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--charcoal);margin-bottom:6px}
+.menu-header p{font-size:13px;font-weight:300;color:var(--text-light)}
+.menu-legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem;padding:12px 1rem;background:var(--cream-dark);border-radius:10px;font-size:12px;color:var(--text-light)}
+.legend-code{font-weight:500;color:var(--terra)}
+.legend-sep{color:var(--border)}
+.menu-notice{font-size:12px;font-weight:300;color:var(--text-light);text-align:center;margin-bottom:1.5rem;line-height:1.75;padding:12px 1rem;border:1px solid var(--border);border-radius:8px;background:var(--gold-pale)}
+.ai-note{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;font-weight:300;color:var(--text-light);background:var(--terra-pale);border:1px solid var(--terra-soft);border-radius:8px;padding:14px 16px;margin-bottom:1.5rem;line-height:1.7}
+.ai-note strong{color:var(--terra);font-weight:500}
+
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.menu-single{max-width:700px;margin:0 auto}
+.menu-section{margin-bottom:2.5rem}
+.menu-section-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--terra);letter-spacing:0.02em;margin-bottom:12px;padding-bottom:8px;border-bottom:1.5px solid var(--terra-soft);display:flex;align-items:center;gap:8px}
+
+.mi{padding:11px 0;border-bottom:1px solid var(--cream-dark)}
+.mi:last-child{border-bottom:none}
+.mi-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:3px}
+.mi-name{font-size:14px;font-weight:500;color:var(--text);flex:1;line-height:1.3}
+.mi-price{font-size:14px;font-weight:400;color:var(--terra);white-space:nowrap;flex-shrink:0}
+.mi-desc{font-size:12.5px;font-weight:300;color:var(--text-light);line-height:1.6;margin-bottom:4px;font-style:italic}
+.mi-tags{font-size:10.5px;font-weight:400;color:var(--terra-mid);letter-spacing:0.04em}
+.ai-star{color:var(--gold);margin-right:4px;font-size:12px}
+
+.sides-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.side-item{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.side-name{font-size:13px;font-weight:400;color:var(--charcoal)}
+.side-price{font-size:13px;color:var(--terra);font-weight:400}
+.sauces-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:8px}
+.sauce-item{background:var(--cream-dark);border-radius:8px;padding:10px 12px}
+.sauce-name{font-size:13px;font-weight:500;color:var(--charcoal);margin-bottom:2px}
+.sauce-tags{font-size:11px;color:var(--terra-mid)}
+.note-box{background:var(--charcoal);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:12px;font-weight:300;color:rgba(255,255,255,0.65);font-style:italic}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+  .about-grid{grid-template-columns:1fr}
+  .farm-hl{grid-template-columns:1fr;text-align:center}
+  .menu-grid{grid-template-columns:1fr}
+  .sides-grid{grid-template-columns:1fr}
+  .hero h1{font-size:2.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-icon">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#C4933A">
+          <path d="M40 8C40 8 28 22 28 36C28 28 34 20 34 20C30 30 26 40 26 50C26 62 32 72 40 72C48 72 54 62 54 50C54 40 50 30 46 20C46 20 52 28 52 36C52 22 40 8 40 8Z" opacity="0.9"/>
+        </g>
+      </svg>
+    </div>
+    <span class="hero-label">Apollo Corfu · Farm to Flame</span>
+    <h1>ASADOR</h1>
+    <p class="hero-tagline">Farm to Flame</p>
+    <div class="hero-divider"><div class="hero-line"></div><div class="hero-dot"></div><div class="hero-line"></div></div>
+    <p class="hero-desc">At Asador Farm to Flame, fire, nature and authentic flavour come together in a unique gastronomic experience inspired by the philosophy of "from farm to table" — where every meal tells a story that begins in the earth, passes through the flame, and arrives at your table.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">Breakfast 08:00–12:00</span>
+      <span class="hero-badge">Lunch 13:30–16:30</span>
+      <span class="hero-badge">Dinner 19:00–22:00</span>
+      <span class="hero-badge">Reservation Required</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-logo">ASADOR<span>Farm to Flame</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="show('about',this)">About</button>
+      <button class="nav-tab" onclick="show('breakfast',this)">Breakfast</button>
+      <button class="nav-tab" onclick="show('lunch',this)">Lunch</button>
+      <button class="nav-tab" onclick="show('dinner',this)">Dinner</button>
+    </div>
+  </div>
+</div>
+
+<!-- PDF BAR -->
+<div class="pdf-bar">
+  <a class="pdf-btn" href="https://stamelos1.github.io/apollocorfu/Breakfast_ASADOR%20ENG.pdf" target="_blank">📄 Breakfast PDF</a>
+  <a class="pdf-btn" href="https://stamelos1.github.io/apollocorfu/Lunch_ASADOR%20ENG.pdf" target="_blank">📄 Lunch PDF</a>
+  <a class="pdf-btn" href="https://stamelos1.github.io/apollocorfu/Dinner_ASADOR%20ENG.pdf" target="_blank">📄 Dinner PDF</a>
+</div>
+
+<div class="content">
+
+  <!-- ABOUT -->
+  <div class="section active" id="section-about">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>Where fire meets the earth's finest flavours</h2>
+        <p>At Asador Farm to Flame, a gastronomic experience awaits that is centred around fire — inspired by the purity of flame and the richness of natural ingredients drawn from the earth. Simple techniques, bold flavours, and authentic charcoal cooking define every plate.</p>
+        <p>The heart of the restaurant lies at the <strong>Apollo Organic Farm</strong>, the hotel's own farm which supplies the Asador daily with fresh vegetables, aromatic herbs and seasonal produce. Combined with premium meats, fresh fish and carefully selected local ingredients, the result is dishes that celebrate the authentic flavours of Corfu and the Mediterranean.</p>
+        <p>The restaurant is set in the most peaceful and tranquil corner of the resort, next to the Quiet Zone — offering a setting where natural beauty, elegance and hospitality coexist in perfect harmony.</p>
+        <div class="quote-block"><p>"Simple techniques, bold flavors, and authentic charcoal cooking."</p></div>
+        <div class="about-stats">
+          <div class="stat-card"><span class="stat-num">08:00</span><span class="stat-lbl">Breakfast from</span></div>
+          <div class="stat-card"><span class="stat-num">22:00</span><span class="stat-lbl">Last orders</span></div>
+          <div class="stat-card"><span class="stat-num">24h</span><span class="stat-lbl">Advance booking</span></div>
+          <div class="stat-card"><span class="stat-num">Thu</span><span class="stat-lbl">Farm breakfast</span></div>
+        </div>
+      </div>
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card-title">🕐 Opening Hours</div>
+          <p><strong>Breakfast</strong> · Daily 08:00–12:00<br><strong>Lunch</strong> · Daily 13:30–16:30<br><strong>Dinner</strong> · Daily 19:00–22:00<br><br>Reservation required at least <strong>24 hours in advance</strong>.<br>Book via <strong>Exclusivi</strong>.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">🍽 Dine Around</div>
+          <p>Guests on <strong>All Inclusive</strong> or <strong>Half Board</strong> with <strong>4+ nights</strong> enjoy one complimentary dinner at Asador.<br><br>AI Dine Around guests enjoy marked dishes at no charge; a <strong>30% discount</strong> applies to all other dishes.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">🌿 Location</div>
+          <p>Nestled in the <strong>quietest corner of Apollo Corfu</strong>, adjacent to the Adults-Only Quiet Zone — an intimate escape for a relaxed, unhurried meal in a serene garden setting.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="farm-hl">
+      <div class="farm-icon-wrap"><span style="font-size:32px">🌱</span></div>
+      <div>
+        <h3>Farm-to-Table Breakfast Experience</h3>
+        <p>Every <strong style="color:var(--gold)">Thursday at 09:00</strong>, guests have the opportunity to visit the Apollo Organic Farm, walk through the gardens and harvest seasonal vegetables and aromatic herbs of their own choosing. The Asador chef then washes and prepares — right before their eyes — a freshly cooked omelette using the very ingredients they have just gathered from the earth, transforming a morning harvest into an authentic and unforgettable breakfast.</p>
+        <p style="color:rgba(255,255,255,0.45);font-size:12px">Places are limited · Reservation required via Exclusivi</p>
+        <span class="farm-badge">Every Thursday · 09:00 · Exclusivi booking required</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BREAKFAST -->
+  <div class="section" id="section-breakfast">
+    <div class="menu-header">
+      <h2>Breakfast Menu</h2>
+      <p>Served daily from 08:00 until 12:00 · Reservation required via Exclusivi</p>
+    </div>
+    <div class="menu-legend">
+      <span><span class="legend-code">VG</span> Vegan</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">V</span> Vegetarian</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">GF</span> Gluten Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">DF</span> Dairy Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">EF</span> Egg Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">NF</span> Nut Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">SF</span> Seafood Free</span>
+    </div>
+    <div class="menu-notice">Please inform the staff of any allergies or dietary requirements. A full allergen list is available upon request. Prices include all taxes.<br><strong>Guests on the all-inclusive package may enjoy the dishes marked with ✦ at no additional charge.</strong></div>
+    <div class="menu-single">
+      <div class="menu-section">
+        <div class="menu-section-title">🍳 Breakfast Dishes</div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Omelette</span><span class="mi-price">12€</span></div><div class="mi-desc">Turkey, gouda, mushrooms, cherry tomatoes, green salad</div><div class="mi-tags">GF · NF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Truffle Egg White Omelette</span><span class="mi-price">12€</span></div><div class="mi-desc">Mushrooms, peanut butter, rocket, truffle oil on whole wheat bread</div><div class="mi-tags">V · DF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Fried Eggs</span><span class="mi-price">12€</span></div><div class="mi-desc">Roasted tomatoes on sourdough bread with paprika and olive oil</div><div class="mi-tags">V · DF · NF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Avocado Toast</span><span class="mi-price">14€</span></div><div class="mi-desc">Avocado, prosciutto, ciabatta, goat cheese, rocket</div><div class="mi-tags">EF · NF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Greek Yoghurt Bowl</span><span class="mi-price">10€</span></div><div class="mi-desc">Yogurt topped with fresh fruits, honey or plain</div><div class="mi-tags">V · GF · EF · NF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Pancakes</span><span class="mi-price">12€</span></div><div class="mi-desc">With sour cherry and yoghurt or with maple syrup</div><div class="mi-tags">V · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Fogatsa French Toast</span><span class="mi-price">14€</span></div><div class="mi-desc">Fogatsa brioche with apple compote and salted caramel</div><div class="mi-tags">V · NF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Açai Bowl</span><span class="mi-price">14€</span></div><div class="mi-desc">Açai yoghurt, granola, coconut, pineapple, raspberry, banana, Corfiot honey</div><div class="mi-tags">V · EF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Corfu Traditional Strapatsada</span><span class="mi-price">14€</span></div><div class="mi-desc">Corfiot 'Noumboulo', cherry tomatoes, onion, parsley, feta cheese</div><div class="mi-tags">GF · NF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Eggs Royale</span><span class="mi-price">14€</span></div><div class="mi-desc">Poached eggs, brioche bun, smoked salmon, cream cheese, hollandaise, mesclun salad</div><div class="mi-tags">NF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Eggs Benedict</span><span class="mi-price">16€</span></div><div class="mi-desc">Poached eggs, brioche bun, bacon, hollandaise, mesclun salad</div><div class="mi-tags">NF · SF</div></div>
+        <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Croque Madame</span><span class="mi-price">16€</span></div><div class="mi-desc">Fried egg, brioche bun, chèvre cream, bacon, Mornay sauce, mesclun salad</div><div class="mi-tags">NF · SF</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LUNCH -->
+  <div class="section" id="section-lunch">
+    <div class="menu-header">
+      <h2>Lunch Menu</h2>
+      <p>Served daily from 13:30 until 16:30 · Reservation required via Exclusivi</p>
+    </div>
+    <div class="menu-legend">
+      <span><span class="legend-code">VG</span> Vegan</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">V</span> Vegetarian</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">GF</span> Gluten Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">DF</span> Dairy Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">EF</span> Egg Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">NF</span> Nut Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">SF</span> Seafood Free</span>
+    </div>
+    <div class="menu-notice">Please inform the staff of any allergies or dietary requirements. A full allergen list is available upon request. Prices include all taxes.</div>
+    <div class="menu-grid">
+      <div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥗 Starters</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">The Asador Platter</span><span class="mi-price">12€</span></div><div class="mi-desc">Smoked hummus cream, grilled avocado tzatziki, taramas, and pita bread</div><div class="mi-tags">V · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Grilled Octopus</span><span class="mi-price">19€</span></div><div class="mi-desc">Charcoal-grilled with paprika, oregano, and aged balsamic</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Beef Carpaccio</span><span class="mi-price">25€</span></div><div class="mi-desc">Dry-aged beef with parmesan shavings, bitter leaves, and zesty lemon</div><div class="mi-tags">GF · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🍲 Soups</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Fire-Roasted Beetroot</span><span class="mi-price">12€</span></div><div class="mi-desc">Beetroot with goat cheese, fennel, and warm spices</div><div class="mi-tags">V · GF · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥗 Salads</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Green Garden Salad</span><span class="mi-price">13€</span></div><div class="mi-desc">Garden leaves with herbs, toasted walnuts, honey, and aged balsamic</div><div class="mi-tags">V · GF · DF · EF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Greek Salad</span><span class="mi-price">15€</span></div><div class="mi-desc">Tomato with charred pepper, cucumber, olives, feta cheese, capers, samphire, oregano, and carob rusk</div><div class="mi-tags">V · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥪 Snacks</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Urban Turkey Club</span><span class="mi-price">15€</span></div><div class="mi-desc">Turkey fillet, smoked turkey, gouda, tomato, lettuce, honey mustard-mayonnaise</div><div class="mi-tags">NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">3 Beef Mini Burgers</span><span class="mi-price">16€</span></div><div class="mi-desc">Brioche bun, cheddar, cucumber pickle, caramelised onion, bacon jam</div><div class="mi-tags">NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🍝 Pasta</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Penne Napoletane</span><span class="mi-price">14€</span></div><div class="mi-desc">Tomato, basil, garlic</div><div class="mi-tags">VG · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Papardelle Alla Polo</span><span class="mi-price">17€</span></div><div class="mi-desc">Chicken, mushrooms, basil pesto, parmesan, cream</div><div class="mi-tags">NF · SF</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="menu-section">
+          <div class="menu-section-title">🐟 Mains from the Sea</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Prawns</span><span class="mi-price">28€</span></div><div class="mi-desc">With tartar sauce, remoulade with charred fennel, and garden herbs</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Catch of the Day</span><span class="mi-price">80€/kg</span></div><div class="mi-desc">Fresh fish of the day grilled over charcoal</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥩 Mains from the Land</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Tomahawk Steak 700gr</span><span class="mi-price">38€</span></div><div class="mi-desc">Pork tomahawk with smoked pepper and garlic confit · for 2 persons</div><div class="mi-tags">GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Ribeye Steak</span><span class="mi-price">40€</span></div><div class="mi-desc">Beef ribeye with smoked salt, herb beurre noisette, and toasted hazelnuts</div><div class="mi-tags">GF · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥔 Side Dishes · 4€ each</div>
+          <div class="sides-grid">
+            <div class="side-item"><span class="side-name">Fire-roasted baby potatoes with wild herbs</span></div>
+            <div class="side-item"><span class="side-name">Sweet Potato Fries</span></div>
+            <div class="side-item"><span class="side-name">Charred green vegetables</span></div>
+            <div class="side-item"><span class="side-name">Grilled Corn with paprika</span></div>
+          </div>
+          <div class="note-box">All main meat courses are served with a choice of one side dish and one sauce.</div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🫙 Sauces</div>
+          <div class="sauces-grid">
+            <div class="sauce-item"><div class="sauce-name">Chimichurri</div><div class="sauce-tags">VG · DF · EF · NF · SF</div></div>
+            <div class="sauce-item"><div class="sauce-name">Pepper</div><div class="sauce-tags">EF · NF · SF</div></div>
+            <div class="sauce-item"><div class="sauce-name">Béarnaise</div><div class="sauce-tags">V · NF · SF</div></div>
+            <div class="sauce-item"><div class="sauce-name">BBQ</div><div class="sauce-tags">DF · EF · NF</div></div>
+            <div class="sauce-item"><div class="sauce-name">Yogurt Sauce</div><div class="sauce-tags">V · GF · EF · NF · SF</div></div>
+          </div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🍮 Desserts</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Cheesecake</span><span class="mi-price">11€</span></div><div class="mi-desc">Cheesecake with wild cherry topping</div><div class="mi-tags">SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Chocolate Brownie</span><span class="mi-price">11€</span></div><div class="mi-desc"></div><div class="mi-tags">V · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Grilled Seasonal Fruits</span><span class="mi-price">12€</span></div><div class="mi-desc">Seasonal fruits cooked over fire with honey</div><div class="mi-tags">V · GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Ice Cream Selection (2 scoops)</span><span class="mi-price">8€</span></div><div class="mi-tags">V · NF · SF</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DINNER -->
+  <div class="section" id="section-dinner">
+    <div class="menu-header">
+      <h2>Dinner Menu</h2>
+      <p>Served daily from 19:00 until 22:00 · Reservation required via Exclusivi</p>
+    </div>
+    <div class="menu-legend">
+      <span><span class="legend-code">VG</span> Vegan</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">V</span> Vegetarian</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">GF</span> Gluten Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">DF</span> Dairy Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">EF</span> Egg Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">NF</span> Nut Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">SF</span> Seafood Free</span>
+    </div>
+    <div class="ai-note">
+      <span style="color:var(--gold);font-size:14px">✦</span>
+      <span>Guests on the all-inclusive Dine Around programme enjoy dishes marked <strong>✦</strong> at no charge. A <strong>30% discount</strong> applies to all other dishes. Please inform staff of any allergies. Prices include all taxes.</span>
+    </div>
+    <div class="menu-grid">
+      <div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥗 Starters</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>The Asador Platter</span><span class="mi-price">12€</span></div><div class="mi-desc">Smoked hummus cream, grilled avocado tzatziki, taramas, and pita bread</div><div class="mi-tags">V · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Charred Garden Vegetables</span><span class="mi-price">14€</span></div><div class="mi-desc">Grilled vegetables with herbs and sea salt</div><div class="mi-tags">VG · GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Grilled Mushrooms</span><span class="mi-price">14€</span></div><div class="mi-desc">Selection of mushrooms with thyme and garlic ash</div><div class="mi-tags">VG · GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Marinated Sardines</span><span class="mi-price">14€</span></div><div class="mi-desc">Lightly cured sardines with chili and lemon notes</div><div class="mi-tags">EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Smoked Sausage</span><span class="mi-price">17€</span></div><div class="mi-desc">Smoky sausage with tomato, chili, basil, and crispy tortilla</div><div class="mi-tags">DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Grilled Octopus</span><span class="mi-price">19€</span></div><div class="mi-desc">Charcoal-grilled with paprika, oregano, and aged balsamic</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Beef Carpaccio</span><span class="mi-price">25€</span></div><div class="mi-desc">Dry-aged beef with parmesan shavings, bitter leaves, and zesty lemon</div><div class="mi-tags">GF · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🍲 Soups</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Fire-Roasted Beetroot</span><span class="mi-price">12€</span></div><div class="mi-desc">Beetroot with goat cheese, fennel, and warm spices</div><div class="mi-tags">V · GF · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥗 Salads</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Green Garden Salad</span><span class="mi-price">13€</span></div><div class="mi-desc">Garden leaves with herbs, toasted walnuts, honey, and aged balsamic</div><div class="mi-tags">V · GF · DF · EF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Wild Greens</span><span class="mi-price">14€</span></div><div class="mi-desc">With smoked olive oil and lemon</div><div class="mi-tags">VG · GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Greek Salad</span><span class="mi-price">15€</span></div><div class="mi-desc">Tomato with charred pepper, cucumber, olives, feta cheese, capers, samphire, oregano, and carob rusk</div><div class="mi-tags">V · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🍮 Desserts</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Traditional Orange Pie</span><span class="mi-price">9€</span></div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Cheesecake</span><span class="mi-price">11€</span></div><div class="mi-desc">Cheesecake with wild cherry topping</div><div class="mi-tags">SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Chocolate Brownie</span><span class="mi-price">11€</span></div><div class="mi-tags">V · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Grilled Seasonal Fruits</span><span class="mi-price">12€</span></div><div class="mi-desc">Seasonal fruits cooked over fire with honey</div><div class="mi-tags">V · GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Ice Cream Selection (2 scoops)</span><span class="mi-price">8€</span></div><div class="mi-tags">V · NF · SF</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="menu-section">
+          <div class="menu-section-title">🐟 Mains from the Sea</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Calamari</span><span class="mi-price">16€</span></div><div class="mi-desc">Cooked over fire with squid ink, tomato, capers, olives, and samphire</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Cod</span><span class="mi-price">16€</span></div><div class="mi-desc">Grilled with bonito flakes powder, saffron aioli, charred zucchini, and lemon</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Prawns</span><span class="mi-price">28€</span></div><div class="mi-desc">With tartar sauce, remoulade with charred fennel, and garden herbs</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name">Catch of the Day</span><span class="mi-price">80€/kg</span></div><div class="mi-desc">Fresh fish of the day grilled over charcoal</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥩 Mains from the Land</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Chicken Parrilla</span><span class="mi-price">18€</span></div><div class="mi-desc">Chicken thigh with cumin, smoked chili, and fresh verbena</div><div class="mi-tags">GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Tomahawk Steak 700gr</span><span class="mi-price">38€</span></div><div class="mi-desc">Pork tomahawk with smoked pepper and garlic confit · for 2 persons</div><div class="mi-tags">GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Pork Spare Ribs</span><span class="mi-price">24€</span></div><div class="mi-desc">BBQ pork ribs with smoke and caramelisation</div><div class="mi-tags">GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Lamb Chops</span><span class="mi-price">32€</span></div><div class="mi-desc">With five-spice crust, honey, and rosemary</div><div class="mi-tags">GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Ribeye Steak</span><span class="mi-price">40€</span></div><div class="mi-desc">Beef ribeye with smoked salt, herb beurre noisette, and toasted hazelnuts</div><div class="mi-tags">GF · EF · NF · SF</div></div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥔 Side Dishes · 4€ each</div>
+          <div class="sides-grid">
+            <div class="side-item"><span class="side-name">Fire-roasted baby potatoes with wild herbs</span></div>
+            <div class="side-item"><span class="side-name">Sweet Potato Fries</span></div>
+            <div class="side-item"><span class="side-name">Charred green vegetables</span></div>
+            <div class="side-item"><span class="side-name">Grilled Corn with paprika</span></div>
+          </div>
+          <div class="note-box">All main meat courses are served with a choice of one side dish and one sauce.</div>
+        </div>
+        <div class="menu-section">
+          <div class="menu-section-title">🫙 Sauces</div>
+          <div class="sauces-grid">
+            <div class="sauce-item"><div class="sauce-name">Chimichurri</div><div class="sauce-tags">VG · DF · EF · NF · SF</div></div>
+            <div class="sauce-item"><div class="sauce-name">Pepper</div><div class="sauce-tags">EF · NF · SF</div></div>
+            <div class="sauce-item"><div class="sauce-name">Béarnaise</div><div class="sauce-tags">V · NF · SF</div></div>
+            <div class="sauce-item"><div class="sauce-name">BBQ</div><div class="sauce-tags">DF · EF · NF</div></div>
+            <div class="sauce-item"><div class="sauce-name">Yogurt Sauce</div><div class="sauce-tags">V · GF · EF · NF · SF</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: document.querySelector('.nav-wrap').offsetTop - 10, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
