@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apollo Corfu — Staff Portal</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2D4A3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Apollo Corfu">
+<link rel="apple-touch-icon" href="icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -283,6 +289,64 @@ footer {
   .info-row { grid-template-columns: 1fr; }
   .hero h1 { font-size: 2.4rem; }
 }
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 600px) {
+  .header-inner { padding: 0 1rem; height: 56px; }
+  .header-badge { display: none; }
+  .logo-text { font-size: 17px; }
+
+  .hero { padding: 3rem 1.25rem; min-height: auto; }
+  .hero h1 { font-size: 2rem; line-height: 1.15; }
+  .hero-sub { font-size: 1rem; }
+  .hero-season { font-size: 9px; }
+
+  .mission-wrap { grid-template-columns: 1fr !important; }
+  .mission-en { border-right: none !important; border-bottom: 1px solid rgba(196,147,58,0.15); }
+  .mission-text { font-size: 13px; }
+
+  .hero-website { font-size: 11px; }
+
+  .portal-label { font-size: 9px; }
+  .cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    max-width: 100% !important;
+  }
+  .portal-card { padding: 1rem 0.75rem; }
+  .card-icon { font-size: 26px; margin-bottom: 6px; }
+  .card-title { font-size: 13px; }
+  .card-sub { font-size: 9px; }
+
+  .main { padding: 2rem 1rem 4rem; }
+
+  .portal-about { grid-template-columns: 1fr !important; }
+  .portal-en { border-right: none !important; border-bottom: 1px solid var(--border); padding: 1.5rem; }
+  .portal-gr { padding: 1.5rem; }
+  .portal-about h2 { font-size: 1.3rem; }
+  .portal-about p { font-size: 13px; }
+
+  .section-title { font-size: 1.4rem; }
+
+  .links-grid { grid-template-columns: 1fr !important; gap: 10px; }
+  .link-card { padding: 1rem 1.25rem; }
+  .link-title { font-size: 14px; }
+  .link-desc { font-size: 12px; }
+  .link-icon { width: 36px; height: 36px; font-size: 16px; }
+
+  .info-row { grid-template-columns: 1fr !important; }
+  .info-card { padding: 1rem; }
+  .info-card p { font-size: 12.5px; }
+
+  footer { padding: 1.5rem 1rem; }
+  .footer-name { font-size: 15px; }
+  .footer-meta { font-size: 11px; line-height: 1.8; }
+}
+
+/* Prevent horizontal scroll on all screens */
+html, body { max-width: 100%; overflow-x: hidden; }
+* { word-break: break-word; }
+
 </style>
 </head>
 <body>
@@ -474,5 +538,15 @@ footer {
   </div>
 </footer>
 
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/apollocorfu/sw.js').catch(function(err) {
+      console.log('SW registration failed: ', err);
+    });
+  });
+}
+</script>
 </body>
 </html>

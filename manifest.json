@@ -1,0 +1,18 @@
+{
+  "name": "Apollo Corfu Staff Portal",
+  "short_name": "Apollo Corfu",
+  "description": "Internal staff reference guide for Apollo Corfu hotel",
+  "start_url": "/apollocorfu/",
+  "display": "standalone",
+  "background_color": "#2D4A3E",
+  "theme_color": "#2D4A3E",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
