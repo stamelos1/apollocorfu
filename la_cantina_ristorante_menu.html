@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cantina Ristorante — Apollo Corfu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rustic:#7A3B1E;--rustic-mid:#9A4E2A;--rustic-light:#C4784A;
+  --rustic-pale:#FAF0E8;--rustic-soft:#EDD8C4;
+  --straw:#C9A84C;--straw-light:#E0C070;--straw-pale:#FBF7E8;
+  --cream:#F8F3EC;--cream-dark:#EDE5D5;--ivory:#FDFAF5;
+  --text:#1E1408;--text-mid:#4A3820;--text-light:#7A6848;
+  --border:#DDD0B8;--white:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);max-width:100%;overflow-x:hidden}
+
+/* HERO */
+.hero{min-height:100vh;background:#1A0E06;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,#3A1E0A 0%,#100803 80%)}
+.flag{position:absolute;top:0;left:0;right:0;height:4px;display:flex}
+.flag-g{flex:1;background:#1B6B3A}.flag-w{flex:1;background:rgba(255,255,255,0.9)}.flag-r{flex:1;background:#B01020}
+.hero-content{position:relative;z-index:2;max-width:740px}
+.hero-eyebrow{font-size:10px;font-weight:400;color:var(--straw-light);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:1.25rem;display:block}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,8vw,6.5rem);font-weight:700;color:#fff;line-height:0.95;letter-spacing:0.04em;margin-bottom:0.4rem}
+.hero-rist{font-size:13px;font-weight:400;color:var(--straw);letter-spacing:0.35em;text-transform:uppercase;margin-bottom:2rem}
+.hero-divider{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:2rem}
+.hero-line{flex:1;max-width:80px;height:1px;background:var(--straw);opacity:0.4}
+.hero-orn{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--straw);opacity:0.7}
+.hero-desc{font-size:15px;font-weight:300;color:rgba(255,255,255,0.58);line-height:1.95;max-width:580px;margin:0 auto 2.5rem}
+.hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-badge{font-size:11px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;color:var(--straw-light);border:1px solid rgba(201,168,76,0.35);padding:6px 16px;border-radius:20px}
+
+/* NAV */
+.nav-wrap{background:#1A0E06;border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;padding:0 2rem}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:0.06em;margin-right:2rem;white-space:nowrap;padding:1rem 0}
+.nav-logo span{color:var(--straw-light);font-style:italic;font-weight:400;font-size:11px;display:block;letter-spacing:0.14em;text-transform:uppercase}
+.nav-tabs{display:flex}
+.nav-tab{padding:1rem 1.25rem;font-size:12px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.45);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.15s}
+.nav-tab:hover{color:rgba(255,255,255,0.8)}
+.nav-tab.active{color:var(--straw-light);border-bottom-color:var(--straw)}
+
+/* PDF BAR */
+.pdf-bar{background:#1A0E06;padding:0.85rem 2rem;border-bottom:1px solid rgba(201,168,76,0.15);display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.pdf-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 18px;background:transparent;border:1px solid rgba(201,168,76,0.5);border-radius:20px;color:var(--straw-light);font-family:'Jost',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.2s}
+.pdf-btn:hover{background:rgba(201,168,76,0.12)}
+
+/* CONTENT */
+.content{max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem}
+.section{display:none;animation:fadeIn 0.3s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:3rem;margin-bottom:3rem;align-items:start}
+.about-text h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--rustic);line-height:1.2;margin-bottom:1.5rem}
+.about-text p{font-size:14px;font-weight:300;color:var(--text-light);line-height:1.95;margin-bottom:1rem}
+.quote-block{border-left:3px solid var(--straw);padding:1rem 1.5rem;margin:1.5rem 0;background:var(--straw-pale);border-radius:0 8px 8px 0}
+.quote-block p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;font-style:italic;color:var(--rustic);line-height:1.7;margin:0}
+
+/* PASTA CARD */
+.pasta-card{background:#1A0E06;border-radius:14px;padding:1.75rem;margin-bottom:14px}
+.pasta-card-title{font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--straw-light);margin-bottom:14px}
+.pasta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pasta-item{background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;text-align:center}
+.pasta-name{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:500;color:var(--straw-light)}
+
+.info-side{display:flex;flex-direction:column;gap:12px}
+.info-card{background:var(--ivory);border:1px solid var(--border);border-left:4px solid var(--rustic);border-radius:10px;padding:1.25rem 1.5rem}
+.info-card:nth-child(2){border-left-color:var(--straw)}
+.info-card:nth-child(3){border-left-color:#1B6B3A}
+.info-card-title{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--rustic);margin-bottom:8px}
+.info-card:nth-child(2) .info-card-title{color:var(--straw)}
+.info-card:nth-child(3) .info-card-title{color:#1B6B3A}
+.info-card p{font-size:13px;font-weight:300;color:var(--text-light);line-height:1.75;margin:0}
+.info-card strong{color:var(--text);font-weight:500}
+
+/* SETTING HIGHLIGHT */
+.setting-hl{background:linear-gradient(135deg,#2A1408 0%,#1A0E06 100%);border-radius:14px;padding:2.5rem 3rem;margin-bottom:3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.setting-hl h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:#fff;line-height:1.2;margin-bottom:1rem}
+.setting-hl p{font-size:13.5px;font-weight:300;color:rgba(255,255,255,0.58);line-height:1.85;margin-bottom:0.75rem}
+.setting-facts{display:flex;flex-direction:column;gap:10px}
+.setting-fact{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,0.05);border-radius:8px;border-left:2px solid var(--straw)}
+.fact-icon{font-size:16px;flex-shrink:0}
+.fact-text{font-size:13px;font-weight:300;color:rgba(255,255,255,0.68);line-height:1.6}
+.fact-text strong{color:var(--straw-light);font-weight:500}
+
+/* ── MENU ── */
+.menu-header{text-align:center;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.menu-header h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--rustic);margin-bottom:6px}
+.menu-header p{font-size:13px;font-weight:300;color:var(--text-light)}
+.menu-legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:2rem;padding:12px 1rem;background:var(--cream-dark);border-radius:10px;font-size:12px;color:var(--text-light)}
+.legend-code{font-weight:500;color:var(--rustic)}
+.legend-sep{color:var(--border)}
+.menu-notice{font-size:12px;font-weight:300;color:var(--text-light);text-align:center;margin-bottom:2rem;line-height:1.75;padding:14px 1rem;border:1px solid var(--border);border-radius:8px;background:var(--straw-pale)}
+.ai-note{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;font-weight:300;color:var(--text-light);background:var(--rustic-pale);border:1px solid var(--rustic-soft);border-radius:8px;padding:14px 16px;margin-bottom:2rem;line-height:1.7}
+.ai-note strong{color:var(--rustic);font-weight:500}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.menu-section{margin-bottom:2.5rem}
+.menu-section-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--rustic);letter-spacing:0.02em;margin-bottom:12px;padding-bottom:8px;border-bottom:1.5px solid var(--rustic-soft);display:flex;align-items:center;gap:8px}
+
+/* MENU ITEMS — fully static */
+.mi{padding:11px 0;border-bottom:1px solid var(--cream-dark)}
+.mi:last-child{border-bottom:none}
+.mi-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:3px}
+.mi-name{font-size:14px;font-weight:500;color:var(--text);flex:1;line-height:1.3}
+.mi-price{font-size:14px;font-weight:400;color:var(--rustic);white-space:nowrap;flex-shrink:0}
+.mi-desc{font-size:12.5px;font-weight:300;color:var(--text-light);line-height:1.6;margin-bottom:4px;font-style:italic}
+.mi-tags{font-size:10.5px;font-weight:400;color:var(--rustic-mid);letter-spacing:0.04em}
+.ai-star{color:var(--straw);margin-right:4px;font-size:12px}
+
+.pizza-note{background:#1A0E06;border-radius:12px;padding:1.5rem;margin-top:0.5rem}
+.pizza-note-title{font-size:10px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--straw-light);margin-bottom:10px}
+.pizza-note p{font-size:12.5px;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.75;margin:0}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+  .about-grid{grid-template-columns:1fr}
+  .setting-hl{grid-template-columns:1fr;padding:2rem}
+  .menu-grid{grid-template-columns:1fr}
+  .pasta-grid{grid-template-columns:repeat(4,1fr)}
+  .hero h1{font-size:3rem}
+}
+@media(max-width:500px){
+  .pasta-grid{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:2.5rem}
+  .nav-logo span{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="flag"><div class="flag-g"></div><div class="flag-w"></div><div class="flag-r"></div></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Apollo Corfu · Italian Dining</span>
+    <h1>La Cantina</h1>
+    <p class="hero-rist">Ristorante</p>
+    <div class="hero-divider"><div class="hero-line"></div><span class="hero-orn">✦</span><div class="hero-line"></div></div>
+    <p class="hero-desc">At the heart of Apollo Corfu, La Cantina brings the warmth and charm of an authentic Italian trattoria — inviting guests on a gastronomic journey filled with the aromas, flavours and traditions of Italy, served in the spirit of Corfu.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">Dinner Only</span>
+      <span class="hero-badge">19:00 – 22:30</span>
+      <span class="hero-badge">Reservation Required</span>
+      <span class="hero-badge">Open Air · Amphitheatre</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-logo">La Cantina<span>Ristorante · Apollo Corfu</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="show('about',this)">About</button>
+      <button class="nav-tab" onclick="show('menu',this)">Dinner Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- PDF BAR -->
+<div class="pdf-bar">
+  <a class="pdf-btn" href="https://stamelos1.github.io/apollocorfu/Dinner_LACANTINA%20ENG.pdf" target="_blank">📄 Dinner Menu PDF</a>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ABOUT -->
+  <div class="section active" id="section-about">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>The spirit of Italy, in the heart of Corfu</h2>
+        <p>At the heart of Apollo Corfu, <strong>La Cantina Ristorante</strong> brings the warmth and charm of an authentic Italian trattoria — inviting guests on a gastronomic journey filled with the aromas, flavours and traditions of Italy. Inspired by the Italian philosophy of simple but exceptional cuisine, La Cantina creates dishes built on quality ingredients, fresh produce and timeless recipes.</p>
+        <p>Handmade pasta, authentic stone-baked pizzas, fine cheeses, cured meats and traditional Italian desserts compose a menu that captures the very essence of Italian gastronomy — crafted with carefully selected local ingredients from the island of Corfu.</p>
+        <div class="quote-block"><p>"Simple, genuine flavours and warm hospitality await you."</p></div>
+        <p>The restaurant combines the rustic elegance of an Italian cantina with the relaxed atmosphere of a Corfu holiday. Warm tones, thoughtful details and a welcoming spirit create the ideal setting for a romantic dinner, a family gathering or an evening with friends — under the open sky of the amphitheatre.</p>
+        <p>At La Cantina, every meal is a celebration of Italian culture. From the first bite to the last glass of wine, guests experience the authenticity, passion and hospitality that have made Italian cuisine beloved across the world — here, at the crossroads of Italy and Corfu.</p>
+      </div>
+      <div class="info-side">
+        <div class="pasta-card">
+          <div class="pasta-card-title">Our pasta selection</div>
+          <div class="pasta-grid">
+            <div class="pasta-item"><div class="pasta-name">Paccheri</div></div>
+            <div class="pasta-item"><div class="pasta-name">Penne</div></div>
+            <div class="pasta-item"><div class="pasta-name">Orecchiette</div></div>
+            <div class="pasta-item"><div class="pasta-name">Ravioli</div></div>
+            <div class="pasta-item"><div class="pasta-name">Garganelli</div></div>
+            <div class="pasta-item"><div class="pasta-name">Tonnarelli</div></div>
+            <div class="pasta-item"><div class="pasta-name">Mafaldine</div></div>
+            <div class="pasta-item"><div class="pasta-name">Linguine</div></div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">🕐 Hours & Booking</div>
+          <p><strong>Dinner only</strong> · 19:00–22:30<br>Reservation required 24h in advance.<br>Book via <strong>Exclusivi</strong>.<br><br><strong>Setting:</strong> Open-air amphitheatre.<br><strong>Dress Code:</strong> Casual Chic.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">✦ Dine Around</div>
+          <p>Guests on <strong>All Inclusive</strong> or <strong>Half Board</strong> with <strong>4+ nights</strong> enjoy one complimentary dinner at La Cantina.<br><br>Dishes marked <strong>✦</strong> at no charge. A <strong>30% discount</strong> applies to all other dishes.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">🍕 Stone Oven Pizzas</div>
+          <p>All our pizzas are baked in an authentic <strong>stone oven</strong> — perfectly crisp base, charred edges, finest toppings. Six varieties available.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-hl">
+      <div>
+        <h3>An Italian evening under the Corfu sky</h3>
+        <p>La Cantina is set in the resort's beautiful open-air amphitheatre — a garden venue framed by olive trees, fragrant herbs and warm evening light. The relaxed, unhurried soul of a true Italian trattoria, transported to the shores of Corfu.</p>
+        <p>Whether for a romantic dinner for two or a convivial table with friends, La Cantina offers an atmosphere that is simultaneously elegant and effortlessly welcoming.</p>
+      </div>
+      <div class="setting-facts">
+        <div class="setting-fact"><span class="fact-icon">🎭</span><div class="fact-text"><strong>Open-Air Amphitheatre</strong> — unique outdoor dining setting, open to the stars.</div></div>
+        <div class="setting-fact"><span class="fact-icon">🫒</span><div class="fact-text"><strong>Local Corfu Ingredients</strong> — classic Italian recipes with carefully selected Corfiot produce.</div></div>
+        <div class="setting-fact"><span class="fact-icon">🍝</span><div class="fact-text"><strong>Handmade Pasta</strong> — eight pasta varieties, made fresh daily.</div></div>
+        <div class="setting-fact"><span class="fact-icon">🍕</span><div class="fact-text"><strong>Stone Oven Pizzas</strong> — authentic Italian pizza, six varieties.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="section" id="section-menu">
+    <div class="menu-header">
+      <h2>Dinner Menu</h2>
+      <p>Served daily from 19:00 until 22:30 · Open-air amphitheatre · Reservation via Exclusivi</p>
+    </div>
+
+    <div class="menu-legend">
+      <span><span class="legend-code">VG</span> Vegan</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">V</span> Vegetarian</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">GF</span> Gluten Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">DF</span> Dairy Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">EF</span> Egg Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">NF</span> Nut Free</span><span class="legend-sep">·</span>
+      <span><span class="legend-code">SF</span> Seafood Free</span>
+    </div>
+
+    <div class="ai-note">
+      <span style="color:var(--straw);font-size:14px">✦</span>
+      <span>Guests on the all-inclusive Dine Around programme enjoy dishes marked <strong>✦</strong> at no charge. A <strong>30% discount</strong> applies to all other dishes. Please inform staff of any allergies. Prices include all taxes.</span>
+    </div>
+
+    <div class="menu-grid">
+      <!-- LEFT -->
+      <div>
+        <div class="menu-section">
+          <div class="menu-section-title">🥗 Starters · Antipasti</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Alici a Beccafico</span><span class="mi-price">14€</span></div><div class="mi-desc">Anchovies, raisins, pine nuts, pecorino cheese, lemon</div><div class="mi-tags">EF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Melanzane alla Siciliana</span><span class="mi-price">15€</span></div><div class="mi-desc">Eggplant, mozzarella, tomato, basil</div><div class="mi-tags">V · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Bocconcini di Mozzarella in Carrozza</span><span class="mi-price">15€</span></div><div class="mi-desc">Mozzarella, tomato, honey, truffle cream</div><div class="mi-tags">V · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Branzino Crudo agli Agrumi</span><span class="mi-price">18€</span></div><div class="mi-desc">Sea bass, citrus, fennel</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Gamberi al Melone e Zafferano</span><span class="mi-price">18€</span></div><div class="mi-desc">Shrimps, melon, prosciutto, rocket</div><div class="mi-tags">GF · DF · EF · NF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Vitello Tonnato</span><span class="mi-price">19€</span></div><div class="mi-desc">Veal, tuna, anchovy, capers, celery</div><div class="mi-tags">GF · DF · NF</div></div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">🍲 Soups · Zuppe</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Pappa al Pomodoro</span><span class="mi-price">12€</span></div><div class="mi-desc">Tomato, country-style bread, garlic, basil</div><div class="mi-tags">VG · DF · EF · NF · SF</div></div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">🥗 Salads · Insalate</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Panzanella</span><span class="mi-price">14€</span></div><div class="mi-desc">Tomato, country-style bread, cucumber, onion, basil</div><div class="mi-tags">VG · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Rucola e Parmigiano</span><span class="mi-price">15€</span></div><div class="mi-desc">Baby rocket, pear, walnut, parmesan, aged balsamic vinegar</div><div class="mi-tags">V · GF · EF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Insalata Pantesca</span><span class="mi-price">16€</span></div><div class="mi-desc">Potato, cherry tomatoes, onion, capers, olives, basil, oregano</div><div class="mi-tags">VG · GF · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Insalata Cesare</span><span class="mi-price">17€</span></div><div class="mi-desc">Baby gem lettuce, chicken, parmesan, anchovies, mustard, garlic, egg, croutons</div><div class="mi-tags">NF</div></div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">🥩 Mains · Secondi</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Tagliata di Manzo</span><span class="mi-price">30€</span></div><div class="mi-desc">Beef, baby potatoes, rosemary, sun-dried tomato, baby rocket, garlic, Brunello sauce</div><div class="mi-tags">GF · NF · EF · SF</div></div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">🍮 Desserts · Dolci</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Tiramisù</span><span class="mi-price">10€</span></div><div class="mi-desc">Mascarpone, espresso, savoiardi, Marsala wine, cocoa</div><div class="mi-tags">V · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Pizza Dolce alla Nocciola</span><span class="mi-price">11€</span></div><div class="mi-desc">Hazelnut praline, banana, biscuit, vanilla ice cream</div><div class="mi-tags">V · EF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Panna Cotta alla Vaniglia</span><span class="mi-price">12€</span></div><div class="mi-desc">Vanilla cream, forest fruits, basil</div><div class="mi-tags">GF · NF · EF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Gelato (2 scoops)</span><span class="mi-price">8€</span></div><div class="mi-desc">Selection of ice cream flavours</div><div class="mi-tags">V · NF · SF</div></div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div>
+        <div class="menu-section">
+          <div class="menu-section-title">🍝 Pasta</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Paccheri Bella Napoli</span><span class="mi-price">14€</span></div><div class="mi-desc">Tomato, basil, garlic</div><div class="mi-tags">V · DF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Penne all'Arrabbiata</span><span class="mi-price">15€</span></div><div class="mi-desc">Tomato, bell pepper, chili, garlic, fresh herbs</div><div class="mi-tags">V · DF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Orecchiette all'Amatriciana</span><span class="mi-price">16€</span></div><div class="mi-desc">Tomato, pancetta affumicata, chili, fresh herbs</div><div class="mi-tags">DF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Garganelli con Pollo</span><span class="mi-price">17€</span></div><div class="mi-desc">Chicken, mushrooms, rosemary, cream, pecorino, parmesan</div><div class="mi-tags">NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Tonnarelli alla Carbonara</span><span class="mi-price">19€</span></div><div class="mi-desc">Guanciale, egg, pecorino, parmesan, black pepper</div><div class="mi-tags">NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Ravioli Ricotta e Spinaci</span><span class="mi-price">19€</span></div><div class="mi-desc">Spinach, cream, pine nuts, gorgonzola, mint</div><div class="mi-tags">V · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Mafaldine al Ragù del Cortile</span><span class="mi-price">24€</span></div><div class="mi-desc">Beef, chicken, pork, pancetta affumicata, celery, cream, sage</div><div class="mi-tags">NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Linguine allo Scoglio</span><span class="mi-price">28€</span></div><div class="mi-desc">Shrimps, scallops, clams, tomato, chili, fresh herbs</div><div class="mi-tags">DF · NF</div></div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">🍚 Risotto</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Risotto di Funghi</span><span class="mi-price">19€</span></div><div class="mi-desc">Wild mushrooms, peas, parmesan, truffle oil</div><div class="mi-tags">V · GF · EF · NF · SF</div></div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">🍕 Pizza</div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Marinara</span><span class="mi-price">14€</span></div><div class="mi-desc">Tomato, garlic, olives, capers, oregano</div><div class="mi-tags">VG · DF · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Margherita</span><span class="mi-price">15€</span></div><div class="mi-desc">Tomato, mozzarella, cherry tomatoes, basil</div><div class="mi-tags">V · EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Quattro Stagioni</span><span class="mi-price">16€</span></div><div class="mi-desc">Tomato, mozzarella, ham, artichoke, mushrooms, olives</div><div class="mi-tags">EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Diavola Piccante</span><span class="mi-price">19€</span></div><div class="mi-desc">Tomato, mozzarella, ventricina piccante</div><div class="mi-tags">EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Prosciutto e Rucola</span><span class="mi-price">19€</span></div><div class="mi-desc">Tomato, mozzarella, prosciutto, baby rocket, cherry tomatoes, parmesan, truffle oil</div><div class="mi-tags">EF · NF · SF</div></div>
+          <div class="mi"><div class="mi-top"><span class="mi-name"><span class="ai-star">✦</span>Pizza al Tartufo</span><span class="mi-price">19€</span></div><div class="mi-desc">Parmigiano, mozzarella, assorted mushrooms, truffle cream</div><div class="mi-tags">EF · NF · SF</div></div>
+        </div>
+
+        <div class="pizza-note">
+          <div class="pizza-note-title">Baked in our stone oven</div>
+          <p>All our pizzas are baked in an authentic stone oven — the traditional Italian method that creates a perfectly crisp base, slightly charred at the edges, with toppings cooked to perfection. Each one is made to order.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: document.querySelector('.nav-wrap').offsetTop - 10, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
